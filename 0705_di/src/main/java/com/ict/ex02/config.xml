@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 스프링 컨테이너에게 정보를 제공하는 역할하는 설정 정보 파일 -->
+	<!-- 1. 객체 생성 -->
+	<!-- OracleDAO oracleDAO = new OracleDAO(); -->
+	<bean id="oracleDAO" class="com.ict.ex02.OracleDAO"></bean>
+	<bean id="mysqlDAO" class="com.ict.ex02.MySQLDAO"></bean>
+	
+	<!-- 2. 의존성 주입 -->
+	<bean id="service" class="com.ict.ex02.Service">
+		<!-- bean 객체를 참조하려면 ref이고, 실제 값을 넣으려면 value 사용 -->
+		<!-- 생성자를 이용한 방법 -->
+		<!-- <constructor-arg name="dao" ref="oracleDAO"></constructor-arg> -->
+		<!-- setter를 이용한 방법 -->
+		<property name="dao" ref="oracleDAO"></property>
+	</bean>
+</beans>
