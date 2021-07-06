@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dao" class="com.ict.ex06.OracleDAO"></bean>
+	<bean id="mysqlDAO" class="com.ict.ex06.MySQLDAO"></bean>
+	
+<!-- autowire : 참조하는 변수의 이름과 참조되는 bean의 id가 같으면 생략 후 autowire 사용  -->
+	<!-- 
+	<bean id="service" class="com.ict.ex06.Service">
+			<property name="dao" ref="dao"></property>
+	</bean>
+	 -->
+	<bean id="service" class="com.ict.ex06.Service" autowire="byName"/>
+</beans>

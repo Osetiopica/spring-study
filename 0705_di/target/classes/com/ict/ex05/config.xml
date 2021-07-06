@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="map" class="com.ict.ex05.DI_Map">
+		<property name="map">
+			<map>
+				<entry key="id" value="hhh"></entry>
+				<entry key="pw" value="111"></entry>
+				<entry key="name" value="홍길동"></entry>
+				<entry key="age" value="11"></entry>
+				<entry key="addr" value="길동"></entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>

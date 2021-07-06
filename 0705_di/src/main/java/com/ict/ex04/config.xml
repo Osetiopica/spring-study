@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="arr" class="com.ict.ex04.DI_Array">
+		<property name="arr1">
+			<list>
+				<value>11</value>
+				<value>22</value>
+				<value>33</value>
+				<value>44</value>
+			</list>
+		</property>
+		<property name="arr2">
+			<list>
+				<value>11</value>
+				<value>22</value>
+				<value>33</value>
+				<value>44</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>
