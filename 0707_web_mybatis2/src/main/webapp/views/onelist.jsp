@@ -56,11 +56,11 @@ max-height:50px;
 </style>
 <script type="text/javascript">
 function update_go(f) {
-	f.action="update.jsp?id=${vo.id }";
+	f.action="update.jsp";
 	f.submit();
 }
 function delete_go(f) {
-	f.action="delete.jsp?id=${vo.id }";
+	f.action="delete.jsp";
 	f.submit();
 }
 </script>
@@ -98,6 +98,8 @@ function delete_go(f) {
 							<td colspan="2">
 								<input type="button" onclick="update_go(this.form)" value="수정">
 								<input type="button" onclick="delete_go(this.form)" value="삭제">
+								<input type="hidden" name="id" value="${vo.id }">
+								<input type="hidden" name="pw" value="${vo.pw }">
 							</td>
 						</tr>
 					</tfoot>

@@ -102,7 +102,6 @@ function remove(f) {
 					<tfoot>
 						<tr>
 							<td colspan="2">
-								<input type="hidden" name="cmd" value="update_ok">
 								<input type="button" onclick="update_ok(this.form)" value="저장">
 							</td>
 						</tr>
