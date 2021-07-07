@@ -89,7 +89,6 @@ public class DAO {
 			System.out.println(e);
 		} finally {
 			try {
-				rs.close();
 				pstm.close();
 				conn.close();
 			} catch (Exception e2) {

@@ -14,6 +14,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	a{
+		text-decoration: none;
+		color: black;
+	}
 	div{
 		text-align: center;
 		margin: auto;
@@ -31,7 +35,7 @@
 <body>
 	<div>
 		<h1>전체 회원 정보 보기</h1>
-		<p>[인원추가]</p>
+		<p><a href="join.jsp">[인원추가]</a></p>
 		<table>
 			<thead>
 				<tr>

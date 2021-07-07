@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- mapper가 여러개 일때 namespace 로 구분한다. -->
+<mapper namespace="members">
+	<select id="list" resultType="com.ict.db.VO">
+		select * from members order by idx asc
+	</select>
+	<insert id="insert" parameterType="com.ict.db.VO">
+		insert into members values(members_seq.nextval,#{id},#{pw},#{name},#{age},#{addr},sysdate)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
