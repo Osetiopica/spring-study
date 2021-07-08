@@ -4,12 +4,16 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="members">
-	<select id="list" resultType="com.ict.db.VO">
-		select * from members order by idx asc
+	<select id="list" parameterType="Map" resultType="com.ict.db.VO">
+		select * from members 
+		<choose>
+			<when test="search==1">where idx = #{keyword}</when>
+			<when test="search==2">where id = #{keyword}</when>
+			<when test="search==3">where lower(name) like '%'||#{keyword}||'%'</when>
+			<when test="search==4">where age >= #{keyword}</when>
+		</choose>
+		 order by idx asc
 	</select>
-	<insert id="insert" parameterType="com.ict.db.VO">
-		insert into members values(members_seq.nextval,#{id},#{pw},#{name},#{age},#{addr},sysdate)
-	</insert>
 </mapper>
 
 

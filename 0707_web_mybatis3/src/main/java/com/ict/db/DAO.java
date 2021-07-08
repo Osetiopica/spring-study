@@ -1,6 +1,8 @@
 package com.ict.db;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -11,9 +13,12 @@ public class DAO {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 
-	public List<VO> getList() {
+	public List<VO> getDynamic(String search, String keyword) {
 		List<VO> list = null;
-		list = sqlSessionTemplate.selectList("list");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		map.put("keyword", keyword);
+		list = sqlSessionTemplate.selectList("list", map);
 		return list;
 	}
 
