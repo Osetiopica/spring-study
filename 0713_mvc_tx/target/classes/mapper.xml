@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tx">
+	<insert id="cardInsert" parameterType="com.ict.vo.VO">
+		insert into card values(#{consumerid}, #{amount})
+	</insert>
+	<insert id="ticketInsert" parameterType="com.ict.vo.VO">
+		insert into ticket values(#{consumerid}, #{countnum})
+	</insert>
+	<insert id="cardInsert2" parameterType="com.ict.vo.CVO">
+		insert into card values(#{consumerid}, #{amount})
+	</insert>
+	<insert id="ticketInsert2" parameterType="com.ict.vo.TVO">
+		insert into ticket values(#{consumerid}, #{countnum})
+	</insert>
+<!-- 
+	<select id="list" resultType="com.ict.vo.VO">
+		select * from guest2 order by id desc
+	</select>
+	<select id="detail" parameterType="String" resultType="com.ict.vo.VO">
+		select * from guest2 where id=#{id}
+	</select>
+	<select id="insert" parameterType="com.ict.vo.VO">
+		insert into guest2 values(guest2_seq.nextval,#{name},#{pw},#{title},#{email},#{fname},#{text},sysdate)
+	</select>
+	<select id="update" parameterType="com.ict.vo.VO">
+		update guest2 set title=#{title}, email=#{email}, fname=#{fname}, text=#{text} where id=#{id}
+	</select>
+	<select id="delete" parameterType="String">
+		delete from guest2 where id=#{id}
+	</select>
+ -->
+</mapper>

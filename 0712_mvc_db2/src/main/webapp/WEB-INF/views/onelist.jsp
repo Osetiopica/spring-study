@@ -43,7 +43,8 @@ a{
 	text-decoration: none;
 }
 img{
-max-height:50px;
+	max-height: 100px;
+	width: auto;
 }
 </style>
 <script type="text/javascript">
@@ -89,7 +90,7 @@ function delete_go(f) {
 							</c:when>
 							<c:otherwise>
 								<td><a href="down.do?fname=${vo.fname }">
-								<img alt="" src="resources/upload/${vo.fname }" style="width: 100px"> <br>${vo.fname }</a></td>
+								<img alt="" src="resources/upload/${vo.fname }"> <br>${vo.fname }</a></td>
 							</c:otherwise>
 							</c:choose>
 						</tr>

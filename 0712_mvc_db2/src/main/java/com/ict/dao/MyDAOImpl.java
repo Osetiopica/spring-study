@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ict.vo.VO;
 
-@Repository("MyDAOImpl")
+@Repository("myDAOImpl")
 public class MyDAOImpl implements MyDAO {
 	
 	@Autowired

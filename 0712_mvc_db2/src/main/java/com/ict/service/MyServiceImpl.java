@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ict.dao.MyDAO;
 import com.ict.vo.VO;
 
-@Service("MyServiceImpl")
+@Service("myServiceImpl")
 public class MyServiceImpl implements MyService {
 
 	@Autowired

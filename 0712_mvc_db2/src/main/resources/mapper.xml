@@ -10,7 +10,7 @@
 		select * from guest2 where id=#{id}
 	</select>
 	<select id="insert" parameterType="com.ict.vo.VO">
-		insert into guest2 values(guest_seq.nextval,#{name},#{pw},#{title},#{email},#{fname},#{text},sysdate)
+		insert into guest2 values(guest2_seq.nextval,#{name},#{pw},#{title},#{email},#{fname},#{text},sysdate)
 	</select>
 	<select id="update" parameterType="com.ict.vo.VO">
 		update guest2 set title=#{title}, email=#{email}, fname=#{fname}, text=#{text} where id=#{id}

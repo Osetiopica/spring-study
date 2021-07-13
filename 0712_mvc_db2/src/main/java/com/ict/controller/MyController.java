@@ -137,8 +137,10 @@ public class MyController {
 				byte[] in = vo.getFname2().getBytes();
 				File out = new File(path, fname2);
 				FileCopyUtils.copy(in, out);
+				vo.setFname(fname2);
+			} else {
+				vo.setFname(request.getParameter("oldfname"));
 			}
-			vo.setFname(fname2);
 			myService.getUpdate(vo);
 			return new ModelAndView("redirect:onelist.do?id=" + vo.getId());
 		} catch (Exception e) {
