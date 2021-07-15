@@ -23,13 +23,6 @@
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="factoryBean"></constructor-arg>
 	</bean>
-	<!-- 
-	<bean id="dao" class="com.ict.dao.MyDAO" autowire="byName"></bean>
-	 -->
 	<context:annotation-config/>	
 	<context:component-scan base-package="com.ict"/>
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="UTF-8"></property>
-		<property name="maxUploadSize" value="104857600"></property>
-	</bean>
 </beans>
