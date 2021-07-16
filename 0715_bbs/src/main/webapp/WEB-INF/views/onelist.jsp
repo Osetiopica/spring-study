@@ -58,20 +58,12 @@
 	function delete_go() {
 		location.href="delete.do?b_idx=${bvo.b_idx}&cPage=${cPage}";
 	}
-	function reply_write(f) {
-		f.action="reply_write.do";
-		f.submit();
-	}
-	function reply_del(f) {
-		f.action = "reply_delete.do";
-		f.submit();
-	}
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	function getReplyList() {
-		$("#tbody").empty();
+		$("#reply_list").empty();
 		$.ajax({
 			url:"reply_list.do?b_idx=${bvo.b_idx}",
 			method:"post",
@@ -79,13 +71,8 @@ $(function() {
 			success:function(data){
 				var tag = "";
 				$.each(data, function() {
-					tag += "<form method='post'><table><tbody id='reply'><tr>";
-					tag += "<td><textarea rows='4' cols='70' name='content' readonly>"+this["content"]+"</textarea></td>";
-					tag += "<td><input type='button' value='삭제' onclick='reply_del(this.form)'>";
-					tag += "<input type='hidden' name='cPage' value='"+${cPage}+"'>";
-					tag += "<input type='hidden' name='c_idx' value='"+this["c_idx"]+"'>";
-					tag += "<input type='hidden' name='b_idx' value='"+this["b_idx"]+"'></td>";
-					tag += "</tr></tbody></table></form>";
+					tag += "<tr><td><textarea rows='4' cols='70' name='content' readonly>"+this["content"]+"</textarea></td>";
+					tag += "<td><input type='button' id='reply_delete_btn' c_idx="+this["c_idx"]+" value='삭제'></td></tr>";
 				});
 				$("#reply_list").append(tag);
 			},
@@ -95,7 +82,39 @@ $(function() {
 		});
 	}
 	$("#reply_write_btn").click(function() {
-		getReplyList();
+		$.ajax({
+			url : "reply_write.do",
+			method: "post",
+			data: $("#myForm").serialize(),
+			dataType : "text",
+			success : function(data) {
+				if(data=='1'){
+					getReplyList();
+				}
+				$("#myForm")[0].reset();
+			},
+			error : function() {
+				alert("read fail");
+			}
+		});
+		return false;
+	});
+	$("table").on("click","#reply_delete_btn", function() {
+		$.ajax({
+			url : "reply_delete.do",
+			method: "post",
+			data: "c_idx="+ $(this).attr("c_idx"),
+			dataType : "text",
+			success : function(data) {
+				if(data=='1'){
+					getReplyList();
+				}
+				$("#myForm2")[0].reset();
+			},
+			error : function() {
+				alert("read fail");
+			}
+		});
 	});
 	getReplyList();
 });
@@ -150,17 +169,15 @@ $(function() {
 	<br>
 	<div class="reply" style="border-top: 1px solid black;">
 		<br>
-		<div id="reply_list">
-		<form method="post">
+		<form method="post" id="myForm2">
 			<table>
-				<tbody id="reply"></tbody>
+				<tbody id="reply_list"></tbody>
 			</table>
 		</form>
-		</div>
 	</div>
 	<br>
 	<div class="reply">
-		<form method="post">
+		<form method="post" id="myForm">
 			<table>
 				<tbody>
 					<tr>

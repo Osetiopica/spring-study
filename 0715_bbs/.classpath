@@ -30,7 +30,7 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/project/apache-tomcat-9.0.46/lib/catalina.jar">
+	<classpathentry kind="lib" path="C:/tomcat9/lib/catalina.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="https://tomcat.apache.org/tomcat-9.0-doc/api/"/>
 		</attributes>

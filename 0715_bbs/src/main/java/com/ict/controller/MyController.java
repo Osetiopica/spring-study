@@ -216,22 +216,6 @@ public class MyController {
 			return new ModelAndView("error");
 		}
 	}
-
-	@RequestMapping("reply_write.do")
-	public ModelAndView replyWriteCommand(HttpServletRequest request) {
-		try {
-			CVO cvo = new CVO();
-			String b_idx = request.getParameter("b_idx");
-			String cPage = request.getParameter("cPage");
-			cvo.setB_idx(b_idx);
-			cvo.setContent(request.getParameter("content"));
-			myService.getReply_write(cvo);
-			return new ModelAndView("redirect:onelist.do?b_idx="+b_idx+"&cPage="+cPage);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
-	}
 	
 	@RequestMapping(value = "reply_list.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -244,17 +228,25 @@ public class MyController {
 		return null;
 	}
 
-	@RequestMapping("reply_delete.do")
-	public ModelAndView replyDeleteCommand(HttpServletRequest request) {
+	@RequestMapping(value = "reply_write.do", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public int replyWriteCommand(CVO cvo) {
 		try {
-			String b_idx = request.getParameter("b_idx");
-			String c_idx = request.getParameter("c_idx");
-			String cPage = request.getParameter("cPage");
-			myService.getReply_delete(c_idx);
-			return new ModelAndView("redirect:onelist.do?b_idx="+b_idx+"&cPage="+cPage);
+			return myService.getReply_write(cvo);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return null;
+		return 0;
+	}
+
+	@RequestMapping(value = "reply_delete.do", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public int replyDeleteCommand(@RequestParam("c_idx") String c_idx) {
+		try {
+			return myService.getReply_delete(c_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return 0;
 	}
 }
