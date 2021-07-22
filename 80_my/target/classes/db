@@ -1,0 +1,13 @@
+CREATE TABLE products	(
+idx	         number(4)		    Not Null    primary key,
+category	 varchar2(10)		Not Null,
+p_num		 varchar2(10)		Not Null,
+p_name		 varchar2(400)		Not Null,
+p_company    varchar2(50)		Not Null,
+p_price		 number(10)			Not Null,
+p_image_1st	 varchar2(50)		Null,
+p_image_2nd	 varchar2(50)		Null,
+p_image_3rd	 varchar2(50)		Null,
+p_image_4th	 varchar2(50)		Null,
+p_content	 varchar2(400)	    Not Null,
+p_date		 date	            Not Null	) ;

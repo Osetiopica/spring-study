@@ -25,21 +25,45 @@ table, th, td {
 	width: 40%;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
+	/*
 	function add_cart() {
-		if(${login=='ok'}){
-			location.href="/MyController?cmd=addCart&idx=${vo.idx}";
+		if(${login!=""}){
+			location.href="addCart.do?idx=${vo.idx}";
 		}else{
 			alert("로그인 하세요");
-			location.href="/MyController?cmd=login";
+			location.href="login.do";
 		} 
 	}
+	*/
+	$(function() {
+		$("#btn1").click(function() {
+			$.ajax({
+				url: "addCart.do",
+				method : "post",
+				data : "idx=${vo.idx}",
+				dataType :"text",
+				success : function (data) {
+					if(data == "0"){
+						alert("실패");
+					}else{
+						alert("성공");
+					}				
+				},
+				error:function(){
+					alert("읽기실패");
+				}
+			});
+			return false;
+		});			
+	});
 	function show_cart() {
-		if(${login=='ok'}){
-			location.href="/MyController?cmd=showCart";
+		if(${login!=""}){
+			location.href="showCart.do";
 		}else{
 			alert("로그인 하세요");
-			location.href="/MyController?cmd=login";
+			location.href="login.do";
 		} 
 	}
 </script>
@@ -82,7 +106,7 @@ table, th, td {
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="button"  value="장바구니에 담기" onclick="add_cart()" /> 
+				<input type="button"  value="장바구니에 담기" id="btn1"/> <!-- onclick="add_cart()" /> --> 
 				<input type="button"  value="장바구니 보기" onclick="show_cart()" /></td>
 		</tr>
 	</table>

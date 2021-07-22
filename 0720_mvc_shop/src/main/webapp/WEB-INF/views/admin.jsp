@@ -30,15 +30,15 @@ input{padding: 8px;}
 	<%@ include file="top.jsp"%>
 	<div>
 		<h2>상품 등록</h2>
-		<form method="post" enctype="multipart/form-data" >
+		<form method="post" enctype="multipart/form-data" action="addProduct.do">
 			<table>
 				<tbody>
 					<tr>
 						<th class="bg">분류</th>
 							<td>
-								<input type="radio" name="category" value="com001">컴퓨터
-								<input type="radio" name="category" value="ele002">가전제품
-								<input type="radio" name="category" value="sp003">스포츠
+								<input type="radio" name="category" value="com001" required>컴퓨터
+								<input type="radio" name="category" value="ele002" required>가전제품
+								<input type="radio" name="category" value="sp003" required>스포츠
 							</td>
 					</tr>
 					<tr>
@@ -63,11 +63,11 @@ input{padding: 8px;}
 					</tr>
 					<tr>
 						<th class="bg">상품이미지_S</th>
-						<td><input type="file" name="p_image_s" required></td>
+						<td><input type="file" name="p_image_s2" required></td>
 					</tr>
 					<tr>
 						<th class="bg">상품이미지_L</th>
-						<td><input type="file" name="p_image_l" required></td>
+						<td><input type="file" name="p_image_l2" required></td>
 					</tr>
 					<tr>
 						<th colspan="2" class="bg">상품상세정보</th>
@@ -78,7 +78,7 @@ input{padding: 8px;}
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="2"><input type="button" value="상품등록" onclick="product_add(this.form)"></td>
+						<td colspan="2"><input type="submit" value="상품등록"></td>
 					</tr>
 				</tfoot>
 			</table>

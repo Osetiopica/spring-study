@@ -43,7 +43,7 @@
 		  <div id="log">
 		  	<c:choose>
 		  		<c:when test="${login!='' }">
-		  			${login }님  | 
+		  			${name }님  | 
 		  			<a href="logout.do">로그아웃</a>  | 
 		  			<a href="showCart.do">장바구니</a>  |
 		  		</c:when>

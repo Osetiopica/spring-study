@@ -5,7 +5,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.service.MyService;
@@ -66,7 +70,15 @@ public class MyController {
 	}
 
 	@RequestMapping("login.do")
-	public ModelAndView loginCommand() {
+	public ModelAndView loginCommand(HttpServletRequest request) {
+		if (request.getSession().getAttribute("login") != "") {
+			String test = (String) request.getSession().getAttribute("login");
+			if (test.equalsIgnoreCase("admin")) {
+				return new ModelAndView("admin");
+			} else {
+				return new ModelAndView("redirect:list.do");
+			}
+		}
 		return new ModelAndView("login");
 	}
 
@@ -76,25 +88,34 @@ public class MyController {
 			ModelAndView mv = new ModelAndView("redirect:list.do");
 			MVO result = myService.selectLogin(mvo);
 			String name = result.getName();
-			if(name != "") {
-				request.getSession().setAttribute("login", name);
+			if (request.getSession().getAttribute("login") != "") {
+				String test = (String) request.getSession().getAttribute("login");
+				if (test.equalsIgnoreCase("admin")) {
+					return new ModelAndView("admin");
+				} else {
+					return mv;
+				}
+			}
+			if (name != "") {
+				request.getSession().setAttribute("login", result.getIdx());
+				request.getSession().setAttribute("name", name);
+				String test = result.getId();
+				if (test.equalsIgnoreCase("admin")) {
+					return new ModelAndView("admin");
+				}
 				return mv;
-			}else {
-				return new ModelAndView("redirect:login.do");
 			}
 		} catch (Exception e) {
-			ModelAndView mv = new ModelAndView("error");
-			System.out.println(e);
-			mv.addObject("e", e);
-			return mv;
 		}
+		return new ModelAndView("redirect:login.do");
 	}
-	
+
 	@RequestMapping("logout.do")
 	public ModelAndView loginoutCommand(HttpServletRequest request) {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:list.do");
 			request.getSession().setAttribute("login", "");
+			request.getSession().setAttribute("name", "");
 			return mv;
 		} catch (Exception e) {
 			ModelAndView mv = new ModelAndView("error");
@@ -104,104 +125,187 @@ public class MyController {
 		}
 	}
 
-	/*
-	 * @RequestMapping(value = "down.do", method = RequestMethod.GET) public void
-	 * getFileDown(HttpServletRequest request, HttpServletResponse response) {
-	 * FileInputStream fis = null; BufferedInputStream bis = null;
-	 * BufferedOutputStream bos = null; try { String file_name =
-	 * request.getParameter("file_name"); String path =
-	 * request.getSession().getServletContext().getRealPath("resources/upload/" +
-	 * file_name); response.setContentType("application/x-msdownload");
-	 * response.setHeader("Content-Disposition", "attachment; filename=" +
-	 * URLEncoder.encode(file_name, "utf-8")); File file = new File(new
-	 * String(path.getBytes("utf-8"))); int b; fis = new FileInputStream(file); bis
-	 * = new BufferedInputStream(fis); bos = new
-	 * BufferedOutputStream(response.getOutputStream()); while ((b = bis.read()) !=
-	 * -1) { bos.write(b); } bos.flush(); } catch (Exception e) {
-	 * System.out.println(e); } finally { try { bos.close(); bis.close();
-	 * fis.close(); } catch (Exception e2) { System.out.println(e2); } } }
-	 * 
-	 * @RequestMapping("write.do") public ModelAndView
-	 * writeCommand(@ModelAttribute("cPage") String cPage) { return new
-	 * ModelAndView("write"); }
-	 * 
-	 * @RequestMapping(value = "write_ok.do", method = RequestMethod.GET) public
-	 * ModelAndView writeOkCommand() { return new ModelAndView("redirect:write.do");
-	 * }
-	 * 
-	 * @RequestMapping(value = "write_ok.do", method = RequestMethod.POST) public
-	 * ModelAndView writeOkCommand(HttpServletRequest request, BVO bvo) { try {
-	 * String path =
-	 * request.getSession().getServletContext().getRealPath("resources/upload");
-	 * String file_name2 = bvo.getFile_name2().getOriginalFilename(); if (file_name2
-	 * != "") { byte[] in = bvo.getFile_name2().getBytes(); File out = new
-	 * File(path, file_name2); FileCopyUtils.copy(in, out); }
-	 * bvo.setFile_name(file_name2); bvo.setHit("0"); myService.getInsert(bvo);
-	 * return new ModelAndView("redirect:list.do?cPage=1"); } catch (Exception e) {
-	 * System.out.println(e); return new ModelAndView("error"); } }
-	 * 
-	 * @RequestMapping("update.do") public ModelAndView
-	 * updateCommand(@ModelAttribute("cPage") String cPage, @RequestParam("b_idx")
-	 * String b_idx) { try { ModelAndView mv = new ModelAndView("update");
-	 * 
-	 * BVO bvo = myService.getDetail(b_idx); mv.addObject("bvo", bvo);
-	 * 
-	 * return mv; } catch (Exception e) { System.out.println(e); return new
-	 * ModelAndView("error"); } }
-	 * 
-	 * @RequestMapping(value = "update_ok.do", method = RequestMethod.GET) public
-	 * ModelAndView updateOkCommand() { return new
-	 * ModelAndView("redirect:update.do"); }
-	 * 
-	 * @RequestMapping(value = "update_ok.do", method = RequestMethod.POST) public
-	 * ModelAndView updateOkCommand(HttpServletRequest request, BVO
-	 * bvo, @ModelAttribute("cPage") String cPage) { try { String path =
-	 * request.getSession().getServletContext().getRealPath("resources/upload");
-	 * String file_name2 = bvo.getFile_name2().getOriginalFilename(); if (file_name2
-	 * != "") { byte[] in = bvo.getFile_name2().getBytes(); File out = new
-	 * File(path, file_name2); FileCopyUtils.copy(in, out);
-	 * bvo.setFile_name(file_name2); } else {
-	 * bvo.setFile_name(request.getParameter("old_file_name")); }
-	 * myService.getUpdate(bvo); return new
-	 * ModelAndView("redirect:onelist.do?b_idx="+bvo.getB_idx()+"&cPage="+cPage); }
-	 * catch (Exception e) { System.out.println(e); return new
-	 * ModelAndView("error"); } }
-	 * 
-	 * @RequestMapping("delete.do") public ModelAndView
-	 * deleteCommand(@ModelAttribute("cPage") String cPage, @RequestParam("b_idx")
-	 * String b_idx) { try { ModelAndView mv = new ModelAndView("delete");
-	 * 
-	 * BVO bvo = myService.getDetail(b_idx); mv.addObject("bvo", bvo);
-	 * 
-	 * return mv; } catch (Exception e) { System.out.println(e); return new
-	 * ModelAndView("error"); } }
-	 * 
-	 * @RequestMapping(value = "delete_ok.do", method = RequestMethod.POST) public
-	 * ModelAndView deleteOkCommand(@ModelAttribute("cPage") String
-	 * cPage, @RequestParam("b_idx") String b_idx) { try {
-	 * myService.getReply_delete_all(b_idx); myService.getDelete(b_idx); return new
-	 * ModelAndView("redirect:list.do"); } catch (Exception e) {
-	 * System.out.println(e); return new ModelAndView("error"); } }
-	 * 
-	 * @RequestMapping(value = "reply_list.do", produces =
-	 * "application/json; charset=utf-8")
-	 * 
-	 * @ResponseBody public List<CVO> replyListCommand(@RequestParam("b_idx") String
-	 * b_idx) { try { return myService.getClist(b_idx); } catch (Exception e) {
-	 * System.out.println(e); } return null; }
-	 * 
-	 * @RequestMapping(value = "reply_write.do", produces =
-	 * "application/json; charset=utf-8")
-	 * 
-	 * @ResponseBody public int replyWriteCommand(CVO cvo) { try { return
-	 * myService.getReply_write(cvo); } catch (Exception e) { System.out.println(e);
-	 * } return 0; }
-	 * 
-	 * @RequestMapping(value = "reply_delete.do", produces =
-	 * "application/json; charset=utf-8")
-	 * 
-	 * @ResponseBody public int replyDeleteCommand(@RequestParam("c_idx") String
-	 * c_idx) { try { return myService.getReply_delete(c_idx); } catch (Exception e)
-	 * { System.out.println(e); } return 0; }
-	 */
+	@RequestMapping("showCart.do")
+	public ModelAndView showCartCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("cartList");
+			String m_idx = (String) request.getSession().getAttribute("login");
+			List<VO> list = myService.selectCartList(m_idx);
+
+			int total = 0;
+
+			for (VO vo : list) {
+				total += vo.getQuant() * vo.getP_saleprice();
+			}
+
+			mv.addObject("list", list);
+			mv.addObject("list_leng", list.size());
+			mv.addObject("total", total);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+/*
+	@RequestMapping("addCart.do")
+	public ModelAndView addCartCommand(HttpServletRequest request, @RequestParam("idx") String idx) {
+		try {
+			ModelAndView mv = new ModelAndView("redirect:showCart.do");
+			String m_idx = (String) request.getSession().getAttribute("login");
+			List<VO> list = myService.selectCartList(m_idx);
+			Iterator<VO> it = list.iterator();
+
+			CVO cvo = new CVO();
+
+			cvo.setM_idx(Integer.parseInt(m_idx));
+			cvo.setP_idx(Integer.parseInt(idx));
+
+			VO vo = null;
+			while (it.hasNext()) {
+				VO vo2 = (VO) it.next();
+				if (vo2.getIdx().equalsIgnoreCase(idx)) {
+					vo = vo2;
+					break;
+				}
+			}
+			if (vo == null) {
+				myService.insertAddCart(cvo);
+			} else {
+				myService.updatePlusCart(idx);
+			}
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+*/
+	@RequestMapping(value = "addCart.do", produces = "application/html; chatset=utf-8;")
+	@ResponseBody
+	public String addCartCommand(HttpServletRequest request, @RequestParam("idx") String idx) {
+		try {
+			ModelAndView mv = new ModelAndView("redirect:showCart.do");
+			String m_idx = (String) request.getSession().getAttribute("login");
+			List<VO> list = myService.selectCartList(m_idx);
+			Iterator<VO> it = list.iterator();
+
+			CVO cvo = new CVO();
+
+			cvo.setM_idx(Integer.parseInt(m_idx));
+			cvo.setP_idx(Integer.parseInt(idx));
+
+			VO vo = null;
+			while (it.hasNext()) {
+				VO vo2 = (VO) it.next();
+				if (vo2.getIdx().equalsIgnoreCase(idx)) {
+					vo = vo2;
+					break;
+				}
+			}
+			int result = 0;
+			if (vo == null) {
+				result = myService.insertAddCart(cvo);
+			} else {
+				result = myService.updatePlusCart(idx);
+			}
+
+			return String.valueOf(result);
+		} catch (Exception e) {
+			return "0";
+		}
+	}
+
+	@RequestMapping("editCart.do")
+	public ModelAndView editCartCommand(HttpServletRequest request, @RequestParam("idx") String idx) {
+		try {
+			ModelAndView mv = new ModelAndView("redirect:showCart.do");
+			String m_idx = (String) request.getSession().getAttribute("login");
+			int su = Integer.parseInt(request.getParameter("su"));
+
+			CVO cvo = new CVO();
+			cvo.setM_idx(Integer.parseInt(m_idx));
+			cvo.setP_idx(Integer.parseInt(idx));
+
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("m_idx", cvo.getM_idx());
+			map.put("p_idx", cvo.getP_idx());
+			map.put("su", su);
+
+			myService.updateEditCart(map);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+
+	@RequestMapping("deleteCart.do")
+	public ModelAndView deleteCartCommand(HttpServletRequest request, @RequestParam("idx") String idx) {
+		try {
+			ModelAndView mv = new ModelAndView("redirect:showCart.do");
+			String m_idx = (String) request.getSession().getAttribute("login");
+
+			CVO cvo = new CVO();
+			cvo.setM_idx(Integer.parseInt(m_idx));
+
+			String[] check = request.getParameterValues("check");
+
+			for (int i = 0; i < check.length; i++) {
+				cvo.setP_idx(Integer.parseInt(check[i]));
+				myService.deleteCart(cvo);
+			}
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+
+	@RequestMapping(value = "addProduct.do", method = RequestMethod.POST)
+	public ModelAndView addProductCommand(HttpServletRequest request, VO vo) {
+		try {
+			ModelAndView mv = new ModelAndView("redirect:list.do?category=" + vo.getCategory());
+
+			String path = request.getSession().getServletContext().getRealPath("resources/images");
+			String p_image_s2 = vo.getP_image_s2().getOriginalFilename();
+			String p_image_l2 = vo.getP_image_l2().getOriginalFilename();
+			
+			vo.setP_image_s(p_image_s2);
+			vo.setP_image_l(p_image_l2);
+			
+			int result = myService.insertProduct(vo);
+			if (result > 0) {
+				byte[] in = vo.getP_image_s2().getBytes();
+				File out = new File(path, p_image_s2);
+				FileCopyUtils.copy(in, out);
+				
+				byte[] in2 = vo.getP_image_l2().getBytes();
+				File out2 = new File(path, p_image_l2);
+				FileCopyUtils.copy(in2, out2);
+			} else {
+				return new ModelAndView("redirect:login_ok.do");
+			}
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+
 }

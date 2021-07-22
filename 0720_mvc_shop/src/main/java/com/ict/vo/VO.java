@@ -1,9 +1,12 @@
 package com.ict.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class VO {
-	private String idx, category, p_num, p_name, p_company,p_image_s, p_image_l, p_content, p_date;
+	private String idx, category, p_num, p_name, p_company, p_image_s, p_image_l, p_content, p_date;
 	private int p_price, p_saleprice;
-	
+	private MultipartFile p_image_s2, p_image_l2;
+
 	// 별도 추가 (장바구니내용 => 원래는 DB에 구현 )
 	private int quant, totalPrice ;
 	
@@ -74,6 +77,22 @@ public class VO {
 
 	public void setP_image_l(String p_image_l) {
 		this.p_image_l = p_image_l;
+	}
+	
+	public MultipartFile getP_image_s2() {
+		return p_image_s2;
+	}
+	
+	public void setP_image_s2(MultipartFile p_image_s2) {
+		this.p_image_s2 = p_image_s2;
+	}
+	
+	public MultipartFile getP_image_l2() {
+		return p_image_l2;
+	}
+	
+	public void setP_image_l2(MultipartFile p_image_l2) {
+		this.p_image_l2 = p_image_l2;
 	}
 
 	public String getP_content() {

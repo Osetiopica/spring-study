@@ -1,6 +1,5 @@
 package com.ict.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,58 +24,42 @@ public class MyDAOImpl implements MyDAO {
 	
 	@Override
 	public VO selectOne(String idx) throws Exception {
-		return sqlSessionTemplate.selectOne("detail", idx);
+		return sqlSessionTemplate.selectOne("shop.detail", idx);
 	}
 	
 	@Override
 	public MVO selectLogin(MVO mvo) throws Exception {
-		return sqlSessionTemplate.selectOne("login", mvo);
-	}
-
-	/*
-	@Override
-	public int getInsert(BVO bvo) throws Exception {
-		return sqlSessionTemplate.insert("insert", bvo);
+		return sqlSessionTemplate.selectOne("shop.login", mvo);
 	}
 
 	@Override
-	public int getUpdate(BVO bvo) throws Exception {
-		return sqlSessionTemplate.update("update", bvo);
+	public List<VO> selectCartList(String m_idx) throws Exception {
+		return sqlSessionTemplate.selectList("shop.cartList", m_idx);
 	}
 
 	@Override
-	public int getReply_delete_all(String b_idx) throws Exception {
-		return sqlSessionTemplate.delete("reply_delete_all", b_idx);
+	public int insertAddCart(CVO cvo) throws Exception {
+		return sqlSessionTemplate.insert("shop.addCart", cvo);
 	}
 
 	@Override
-	public int getDelete(String b_idx) throws Exception {
-		return sqlSessionTemplate.delete("delete", b_idx);
+	public int updatePlusCart(String idx) throws Exception {
+		return sqlSessionTemplate.update("shop.plusCart", idx);
 	}
 
 	@Override
-	public int getHitUp(String b_idx) throws Exception {
-		return sqlSessionTemplate.update("hitup", b_idx);
+	public int updateEditCart(Map<String, Integer> map) throws Exception {
+		return sqlSessionTemplate.update("shop.editCart", map);
 	}
 
 	@Override
-	public List<CVO> getClist(String b_idx) throws Exception {
-		return sqlSessionTemplate.selectList("c_list", b_idx);
+	public int deleteCart(CVO cvo) throws Exception {
+		return sqlSessionTemplate.delete("shop.deleteCart", cvo);
 	}
 
 	@Override
-	public int getReply_write(CVO cvo) throws Exception {
-		return sqlSessionTemplate.insert("reply_write", cvo);
+	public int insertProduct(VO vo) throws Exception {
+		return sqlSessionTemplate.insert("shop.addProduct", vo);
 	}
-
-	@Override
-	public int getReply_delete(String c_idx) throws Exception {
-		return sqlSessionTemplate.delete("reply_delete", c_idx);
-	}
-
-	@Override
-	public int getCount() {
-		return sqlSessionTemplate.selectOne("count");
-	}
-	*/
+	
 }
