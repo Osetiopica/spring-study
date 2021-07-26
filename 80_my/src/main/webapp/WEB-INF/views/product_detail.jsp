@@ -133,29 +133,34 @@
 </div>
 <br>
 <div class="product_detail">
-	<div class="product_img"><img src="resources/images/${vo.p_image_1st }"></div>
-	<table class="product_detail_tb">
-		<thead>
-			<tr><td colspan="2">아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td></tr>
-		</thead>
-		<tbody>
-			<tr><td>판매가</td><td><f:formatNumber value="${vo.p_price }" pattern="#,###"/>원</td></tr>
-			<tr><td>배송비</td><td>20,000원</td></tr>
-			<tr><td>상품코드</td><td>${vo.p_num }</td></tr>
-			<tr><td>모델명</td><td>${vo.p_name }</td></tr>
-			<tr><td>제조사</td><td>${vo.p_company }</td></tr>
-			<tr><td>출시일</td><td>${vo.p_date.substring(0, 10) }</td></tr>
-			<tr><td colspan="2"><hr></td></tr>
-			<tr><td>버전</td><td><select><option>글로벌 버전</option></select></td></tr>
-			<tr><td>용량</td><td><select><option>256GB+12GB</option></select></td></tr>
-			<tr><td>색상</td><td><select><option>블랙</option></select></td></tr>
-			<tr><td colspan="2"><hr></td></tr>
-		</tbody>
-	</table>
-	<div class="buy_btn">
-		<input type="button" class="cart_add_btn" value="장바구니" onclick="cart_add()">
-		<input type="button" class="buy_go_btn" value="구매하기" onclick="location.href='payment.jsp'">
-	</div>
+	<form action="payment.do" method="post">
+		<div class="product_img"><img src="resources/images/${vo.p_image_1st }"></div>
+		<table class="product_detail_tb">
+			<thead>
+				<tr><td colspan="2">아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td></tr>
+			</thead>
+			<tbody>
+				<tr><td>판매가</td><td><f:formatNumber value="${vo.p_price }" pattern="#,###"/>원</td></tr>
+				<tr><td>배송비</td><td>20,000원</td></tr>
+				<tr><td>상품코드</td><td>${vo.p_num }</td></tr>
+				<tr><td>모델명</td><td>${vo.p_name }</td></tr>
+				<tr><td>제조사</td><td>${vo.p_company }</td></tr>
+				<tr><td>출시일</td><td>${vo.p_date.substring(0, 10) }</td></tr>
+				<tr><td colspan="2"><hr></td></tr>
+				<tr><td>버전</td><td><select name="s_ver"><option value="글로벌 버전">글로벌 버전</option></select></td></tr>
+				<tr><td>용량</td><td><select name="s_size"><option value="12GB+256GB">12GB+256GB</option></select></td></tr>
+				<tr><td>색상</td><td><select name="s_color"><option value="블랙">블랙</option></select></td></tr>
+				<tr><td colspan="2"><hr>
+				<input type="hidden" name="s_price" value="${vo.p_price }">
+				<input type="hidden" name="p_idx" value="${vo.idx }">
+				</td></tr>
+			</tbody>
+		</table>
+		<div class="buy_btn">
+			<input type="button" class="cart_add_btn" value="장바구니" onclick="cart_add()">
+			<input type="submit" class="buy_go_btn" value="구매하기">
+		</div>
+	</form>
 	<div class="product_bottom">
 	<div class="product_nav" id="product_detail_info">
 		<input type="button" class="product_nav_btn_focus" value="상품 상세 정보" onclick="location.href='#product_detail_info'">

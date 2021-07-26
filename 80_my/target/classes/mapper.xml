@@ -11,6 +11,14 @@
 	<select id="detail" parameterType="String" resultType="com.ict.vo.VO">
 		select * from products where idx = #{idx}
 	</select>
+	
+	<select id="login" parameterType="com.ict.vo.MVO" resultType="com.ict.vo.MVO">
+		select * from my_members where id = #{id} and pw=#{pw}
+	</select>
+	
+	<select id="mypage" parameterType="com.ict.vo.MVO" resultType="com.ict.vo.MVO">
+		select * from my_members where idx = #{idx}
+	</select>
 <!-- 
 	<select id="list" parameterType="String" resultType="com.ict.vo.VO">
 		select * from shop_t where category = #{category}

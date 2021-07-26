@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,18 +121,18 @@
 	<div class="payment_detail_left">
 		<div class="payment_product_info">
 		<h3>주문 상품 정보</h3>
-		<div class="product_img"><img src="resources/images/30010778_detail_032.jpg"></div>
+		<div class="product_img"><img src="resources/images/${vo.p_image_1st }"></div>
 			<table class="product_detail_tb">
 				<thead>
-					<tr><td colspan="2">아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td></tr>
+					<tr><td colspan="2">${vo.p_content }</td></tr>
 				</thead>
 				<tbody>
-					<tr><td>판매가</td><td>729,000원</td></tr>
+					<tr><td>판매가</td><td><f:formatNumber value="${vo.p_price }" pattern="#,###"/>원</td></tr>
 					<tr><td>배송비</td><td>20,000원</td></tr>
-					<tr><td>모델명</td><td>Rog Phone 5</td></tr>
-					<tr><td>버전</td><td>글로벌 버전</td></tr>
-					<tr><td>용량</td><td>256GB+12GB</td></tr>
-					<tr><td>색상</td><td>블랙</td></tr>
+					<tr><td>모델명</td><td>${vo.p_name }</td></tr>
+					<tr><td>버전</td><td>${svo.s_ver }</td></tr>
+					<tr><td>용량</td><td>${svo.s_size }</td></tr>
+					<tr><td>색상</td><td>${svo.s_color }</td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -150,11 +151,13 @@
 		<div class="payment_price_final">
 			<table class="payment_price_final_tb">
 				<tbody>
-					<tr><td>판매가</td><td class="float_right">729,000원</td></tr>
-					<tr><td>할인</td><td class="float_right">-10,000원</td></tr>
+					<tr><td>판매가</td><td class="float_right"><f:formatNumber value="${vo.p_price }" pattern="#,###"/>원</td></tr>
+					<tr><td>할인</td><td class="float_right">0원</td></tr>
 					<tr><td>배송비</td><td class="float_right">20,000원</td></tr>
 					<tr><td colspan="2"><hr></td></tr>
-					<tr><td>총 결제 금액</td><td class="float_right" style="color:hotpink; font-weight: bold;">739,000원</td></tr>
+					<tr><td style="padding-right:10px;">총 결제 금액 </td>
+					<td class="float_right" style="color:hotpink; font-weight: bold;">
+					<f:formatNumber value="${vo.p_price+20000 }" pattern="#,###"/>원</td></tr>
 				</tbody>
 			</table>
 		</div>

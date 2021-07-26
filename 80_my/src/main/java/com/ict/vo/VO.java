@@ -3,6 +3,7 @@ package com.ict.vo;
 import org.springframework.web.multipart.MultipartFile;
 
 public class VO {
+	
 	private String idx, category, p_num, p_name, p_company, p_image_1st, p_image_2nd, p_image_3rd, p_image_4th, p_content, p_date;
 	private int p_price;
 	private MultipartFile p_image_1st_mf, p_image_2nd_mf, p_image_3rd_mf, p_image_4th_mf;
@@ -158,6 +159,5 @@ public class VO {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
 	
 }

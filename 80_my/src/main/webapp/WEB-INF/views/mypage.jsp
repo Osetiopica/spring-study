@@ -95,12 +95,11 @@
 		<h3>내 정보</h3>
 			<table class="mypage_tb">
 				<tbody>
-					<tr><td>아이디</td><td>hong123</td></tr>
-					<tr><td>이메일</td><td>hong123@gmail.com</td></tr>
-					<tr><td>이름</td><td>홍길동</td></tr>
-					<tr><td>연락처</td><td>01012345678</td></tr>
-					<tr><td>가입일</td><td>2022-02-02 02:22:22</td></tr>
-					<tr><td>최근 로그인</td><td>2022-02-22 02:22:22</td></tr>
+					<tr><td>아이디</td><td>${mvo.id }</td></tr>
+					<tr><td>이름</td><td>${mvo.name }</td></tr>
+					<tr><td>연락처</td><td>${mvo.phone }</td></tr>
+					<tr><td>이메일</td><td>${mvo.email }</td></tr>
+					<tr><td>가입일</td><td>${mvo.reg }</td></tr>
 				</tbody>
 			</table>
 	</div>

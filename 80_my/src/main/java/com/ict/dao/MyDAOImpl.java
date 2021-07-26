@@ -29,9 +29,16 @@ public class MyDAOImpl implements MyDAO {
 	
 	@Override
 	public MVO selectLogin(MVO mvo) throws Exception {
-		return sqlSessionTemplate.selectOne("shop.login", mvo);
+		return sqlSessionTemplate.selectOne("my.login", mvo);
 	}
 
+	@Override
+	public MVO selectMypage(MVO mvo) throws Exception {
+		return sqlSessionTemplate.selectOne("my.mypage", mvo);
+	}
+
+	
+	
 	@Override
 	public List<VO> selectCartList(String m_idx) throws Exception {
 		return sqlSessionTemplate.selectList("shop.cartList", m_idx);

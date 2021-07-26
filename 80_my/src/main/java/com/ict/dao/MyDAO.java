@@ -12,6 +12,8 @@ public interface MyDAO {
 	List<VO> selectList(String category) throws Exception;
 	VO selectOne(String idx) throws Exception;
 	MVO selectLogin(MVO mvo) throws Exception;
+	MVO selectMypage(MVO mvo) throws Exception;
+	
 	List<VO> selectCartList(String m_idx) throws Exception;
 	int insertAddCart(CVO cvo) throws Exception;
 	int updatePlusCart(String idx) throws Exception;

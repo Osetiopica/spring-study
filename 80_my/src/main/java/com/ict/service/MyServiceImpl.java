@@ -33,6 +33,13 @@ public class MyServiceImpl implements MyService {
 	}
 
 	@Override
+	public MVO selectMypage(MVO mvo) throws Exception {
+		return myDAO.selectMypage(mvo);
+	}
+
+	
+	
+	@Override
 	public List<VO> selectCartList(String m_idx) throws Exception {
 		return myDAO.selectCartList(m_idx);
 	}

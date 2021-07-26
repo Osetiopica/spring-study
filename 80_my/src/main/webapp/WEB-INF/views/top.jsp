@@ -36,16 +36,34 @@
 		margin-top:20px;
 	}
 </style>
+<script type="text/javascript">
+	function logout() {
+		var a = confirm('로그아웃 하시겠습니까?');
+		if(a){
+			location.href="logout.do";
+		}
+	}
+</script>
 </head>
 <body>
 <header>
 <div style="width:1000px; display: inline-block;">
-	<div class="log">
-		<a href="login.jsp">로그인</a>&nbsp;&nbsp;&nbsp;<a href="mypage.jsp">마이페이지</a>
-	</div>
+	<c:choose>
+		<c:when test="${empty login }">
+			<div class="log">
+				<a href="login.do">로그인</a>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="log">
+				<font>${name } 님</font>&nbsp;|&nbsp;
+				<a href="javascript:logout()">로그아웃</a>&nbsp;|&nbsp;<a href="mypage.do">마이페이지</a>
+			</div>
+		</c:otherwise>
+	</c:choose>
 	<br>
 	<div>
-		<a href="index.jsp" target="_top">
+		<a href="main.do" target="_top">
 			<img class="site_title" src="resources/images/top_logo_tp.png">
 		</a>
 	</div>

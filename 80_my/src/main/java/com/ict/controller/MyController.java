@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ict.service.MyService;
 import com.ict.vo.CVO;
 import com.ict.vo.MVO;
+import com.ict.vo.SVO;
 import com.ict.vo.VO;
 
 @Controller
@@ -40,7 +41,7 @@ public class MyController {
 			ModelAndView mv = new ModelAndView("main");
 			String category = request.getParameter("category");
 			if (category == null || category == "") {
-				category = "%";
+				category = "best";
 			}
 			List<VO> list = myService.selectList(category);
 			mv.addObject("list", list);
@@ -59,6 +60,90 @@ public class MyController {
 			ModelAndView mv = new ModelAndView("product_detail");
 			VO vo = myService.selectOne(idx);
 			mv.addObject("vo", vo);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("payment.do")
+	public ModelAndView paymentCommand(@ModelAttribute("svo") SVO svo) {
+		try {
+			ModelAndView mv = new ModelAndView("payment");
+			
+			VO vo = myService.selectOne(svo.getP_idx());
+			mv.addObject("vo", vo);
+			
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("login.do")
+	public ModelAndView loginCommand(HttpServletRequest request) {/*
+		if (request.getSession().getAttribute("login") != "") {
+			String test = (String) request.getSession().getAttribute("login");
+			if (test.equalsIgnoreCase("admin")) {
+				return new ModelAndView("admin");
+			} else {
+				return new ModelAndView("redirect:main.do");
+			}
+		}*/
+		return new ModelAndView("login");
+	}
+
+	@RequestMapping("login_ok.do")
+	public ModelAndView loginOkCommand(MVO mvo, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("redirect:main.do");
+		try {
+			MVO result = myService.selectLogin(mvo);
+			String name = result.getName();
+			if (name != "") {
+				request.getSession().setAttribute("login", result.getIdx());
+				request.getSession().setAttribute("name", name);
+				String test = result.getId();
+				if (test.equalsIgnoreCase("admin")) {
+					return new ModelAndView("admin_main");
+				}
+				return mv;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return new ModelAndView("redirect:login.do");
+	}
+	
+	@RequestMapping("logout.do")
+	public ModelAndView loginoutCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("redirect:main.do");
+			request.getSession().invalidate();
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("mypage.do")
+	public ModelAndView mypageCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("mypage");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			mvo = myService.selectMypage(mvo);
+			mv.addObject("mvo", mvo);
 
 			return mv;
 		} catch (Exception e) {

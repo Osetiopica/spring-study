@@ -1,7 +1,8 @@
 package com.ict.vo;
 
 public class MVO {
-	private String idx, id, pw, name, age, addr, reg ;
+	
+	private String idx, id, pw, name, phone, email, addr, reg ;
 
 	public String getIdx() {
 		return idx;
@@ -35,12 +36,20 @@ public class MVO {
 		this.name = name;
 	}
 
-	public String getAge() {
-		return age;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getAddr() {

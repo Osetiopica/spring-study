@@ -79,11 +79,13 @@
 <h2 class="login_title">로그인</h2>
 	<div class="login_border">
 		<div class="login_inside">
-			<input type="text" class="login_input" name="id" placeholder="아이디" required="required">
-			<input type="password" class="login_input" name="pw" placeholder="비밀번호" required="required"> 
-			<input type="button" class="login_btn" value="로그인" onclick="admin()">
+		<form action="login_ok.do" method="post">
+			<input type="text" class="login_input" name="id" placeholder="아이디" required>
+			<input type="password" class="login_input" name="pw" placeholder="비밀번호" required> 
+			<input type="submit" class="login_btn" value="로그인">
 			<p class="clear">
 			<a href="join_terms.jsp">회원가입</a><a href="#">아이디 찾기</a><a href="#">비밀번호 찾기</a>
+		</form>
 		</div>
 
 	</div>
