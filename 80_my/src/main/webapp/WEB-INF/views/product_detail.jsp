@@ -137,10 +137,11 @@
 		<div class="product_img"><img src="resources/images/${vo.p_image_1st }"></div>
 		<table class="product_detail_tb">
 			<thead>
-				<tr><td colspan="2">아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td></tr>
+				<tr><td colspan="2">${vo.p_content }</td></tr>
 			</thead>
 			<tbody>
-				<tr><td>판매가</td><td><f:formatNumber value="${vo.p_price }" pattern="#,###"/>원</td></tr>
+				<tr><td>판매가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td><f:formatNumber value="${vo.p_price }" pattern="#,###"/>원</td></tr>
 				<tr><td>배송비</td><td>20,000원</td></tr>
 				<tr><td>상품코드</td><td>${vo.p_num }</td></tr>
 				<tr><td>모델명</td><td>${vo.p_name }</td></tr>

@@ -118,7 +118,7 @@
 <br>
 <h2>구매내역</h2>
 <div class="payment_detail">
-		<c:forEach begin="0" end="3" step="1">
+		<c:forEach var="i" items="list">
 		<div class="payment_product_info">
 			<div class="product_img"><img src="resources/images/30010778_detail_032.jpg"></div>
 			<table class="product_detail_tb">
@@ -127,7 +127,7 @@
 				</thead>
 				<tbody>
 					<tr><td>결제 금액</td><td>739,000원</td></tr>
-					<tr><td>모델명</td><td>Rog Phone 5</td></tr>
+					<tr><td>모델명</td><td>${i.p_name }</td></tr>
 					<tr><td>버전</td><td>글로벌 버전</td></tr>
 					<tr><td>용량</td><td>256GB+12GB</td></tr>
 					<tr><td>색상</td><td>블랙</td></tr>

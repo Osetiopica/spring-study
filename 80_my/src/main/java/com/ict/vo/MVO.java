@@ -2,7 +2,7 @@ package com.ict.vo;
 
 public class MVO {
 	
-	private String idx, id, pw, name, phone, email, addr, reg ;
+	private String idx, id, pw, name, phone, email, addr_1st, addr_2nd, addr_3rd, reg ;
 
 	public String getIdx() {
 		return idx;
@@ -52,12 +52,28 @@ public class MVO {
 		this.email = email;
 	}
 
-	public String getAddr() {
-		return addr;
+	public String getAddr_1st() {
+		return addr_1st;
 	}
 
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setAddr_1st(String addr_1st) {
+		this.addr_1st = addr_1st;
+	}
+
+	public String getAddr_2nd() {
+		return addr_2nd;
+	}
+
+	public void setAddr_2nd(String addr_2nd) {
+		this.addr_2nd = addr_2nd;
+	}
+
+	public String getAddr_3rd() {
+		return addr_3rd;
+	}
+
+	public void setAddr_3rd(String addr_3rd) {
+		this.addr_3rd = addr_3rd;
 	}
 
 	public String getReg() {

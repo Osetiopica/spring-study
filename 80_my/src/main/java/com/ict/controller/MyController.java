@@ -71,11 +71,17 @@ public class MyController {
 	}
 	
 	@RequestMapping("payment.do")
-	public ModelAndView paymentCommand(@ModelAttribute("svo") SVO svo) {
+	public ModelAndView paymentCommand(@ModelAttribute("svo") SVO svo, HttpServletRequest request) {
 		try {
 			ModelAndView mv = new ModelAndView("payment");
 			
 			VO vo = myService.selectOne(svo.getP_idx());
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			mvo = myService.selectMypage(mvo);
+			
+			mv.addObject("mvo", mvo);
 			mv.addObject("vo", vo);
 			
 			return mv;
@@ -87,16 +93,54 @@ public class MyController {
 		}
 	}
 	
+	@RequestMapping("paymentOk.do")
+	public ModelAndView paymentOkCommand(SVO svo, HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("payment_success");
+			
+			svo.setM_idx((String) request.getSession().getAttribute("login"));
+			svo.setP_idx((String) request.getParameter("p_idx"));
+			svo.setS_pay(request.getParameter("s_pay"));
+			svo.setS_delivery("상품주문");
+			myService.insertShopping(svo);
+			
+			VO vo = myService.selectOne(svo.getP_idx());
+			
+			mv.addObject("vo", vo);
+			mv.addObject("svo", svo);
+			
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("join_terms.do")
+	public ModelAndView joinTermsCommand() {
+		return new ModelAndView("join_terms");
+	}
+	
+	@RequestMapping("join.do")
+	public ModelAndView joinCommand() {
+		return new ModelAndView("join");
+	}
+	
+	@RequestMapping("join_ok.do")
+	public ModelAndView joinOkCommand(MVO mvo) {
+		try {
+		myService.insertJoin(mvo);
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		return new ModelAndView("redirect:main.do");
+	}
+	
 	@RequestMapping("login.do")
-	public ModelAndView loginCommand(HttpServletRequest request) {/*
-		if (request.getSession().getAttribute("login") != "") {
-			String test = (String) request.getSession().getAttribute("login");
-			if (test.equalsIgnoreCase("admin")) {
-				return new ModelAndView("admin");
-			} else {
-				return new ModelAndView("redirect:main.do");
-			}
-		}*/
+	public ModelAndView loginCommand() {
 		return new ModelAndView("login");
 	}
 
@@ -145,6 +189,64 @@ public class MyController {
 			mvo = myService.selectMypage(mvo);
 			mv.addObject("mvo", mvo);
 
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("mypage_update.do")
+	public ModelAndView mypageUpdateCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("mypage_update");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			mvo = myService.selectMypage(mvo);
+			mv.addObject("mvo", mvo);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("mypage_pwd.do")
+	public ModelAndView mypagePwdCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("mypage_password");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			mvo = myService.selectMypage(mvo);
+			mv.addObject("mvo", mvo);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("mypage_history.do")
+	public ModelAndView mypageHistoryCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("mypage_history");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			
+			List<VO> list = myService.selectShopping(mvo.getIdx());
+			mv.addObject("list", list);
+			
 			return mv;
 		} catch (Exception e) {
 			ModelAndView mv = new ModelAndView("error");

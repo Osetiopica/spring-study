@@ -12,12 +12,25 @@
 		select * from products where idx = #{idx}
 	</select>
 	
+	<insert id="shopping" parameterType="com.ict.vo.SVO">
+		insert into my_shopping values(my_shopping_seq.nextval,#{p_idx},sysdate,#{s_ver},#{s_size},#{s_color},#{m_idx},#{s_price},#{s_memo},#{s_pay})
+	</insert>
+	
+	<insert id="join" parameterType="com.ict.vo.MVO">
+		insert into my_members values(my_members_seq.nextval,#{id},#{pw},#{name},#{phone},#{email},#{addr_1st},#{addr_2nd},#{addr_3rd},sysdate)
+	</insert>
+	
 	<select id="login" parameterType="com.ict.vo.MVO" resultType="com.ict.vo.MVO">
 		select * from my_members where id = #{id} and pw=#{pw}
 	</select>
 	
 	<select id="mypage" parameterType="com.ict.vo.MVO" resultType="com.ict.vo.MVO">
 		select * from my_members where idx = #{idx}
+	</select>
+	
+	<select id="shoppingList" parameterType="String" resultType="com.ict.vo.VO">
+		select p_content,s_price,p_name,s_ver,s_size,s_color,s_date 
+		from products p, my_shopping s where p.idx=s.p_idx order by s.idx desc;
 	</select>
 <!-- 
 	<select id="list" parameterType="String" resultType="com.ict.vo.VO">

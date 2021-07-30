@@ -59,14 +59,6 @@
 	}
 </style>
 <script type="text/javascript">
-function mail() {
-	var tmp = document.getElementById("mail_select").value;
-	if(tmp == "직접 입력 하기"){
-		tmp = "";
-		document.getElementById("mail_host").focus();
-	}
-	document.getElementById("mail_host").value = tmp;
-}
 function mypage_go() {
 	alert("회원정보 수정 완료");
 	location.href="mypage.jsp";
@@ -87,24 +79,19 @@ function mypage_go() {
 <h2 class="alter_title">회원정보 수정</h2>
 	<div class="join_border">
 			<table class="tb">
-				<tr><td>아이디</td><td><input type="text" style="width:370px;" value="hong123" readonly></td></tr>
+				<tr><td>아이디</td><td><input type="text" style="width:370px;" value="${mvo.id }" readonly></td></tr>
 				<tr><td>비밀번호</td><td><input type="text" style="width:370px;" required></td></tr>
-				<tr><td>이름</td><td><input type="text" style="width:370px;" value="홍길동" required></td></tr>
+				<tr><td>이름</td><td><input type="text" style="width:370px;" value="${mvo.name }" required></td></tr>
 				<tr><td>이메일</td><td>
-					<input type="text" style="width:115px;" value="hong123" required>@<input type="text" id="mail_host" style="width:105px;" value="google.com" required>
-					<select id="mail_select" style="width:130px;" onchange="mail()">
-						<option>직접 입력 하기</option>
-						<option>naver.com</option>
-						<option>google.com</option>
-					</select>
+					<input type="text" style="width:370px;" value="${mvo.email }" required>
 				</td></tr>
-				<tr><td>연락처</td><td><input type="text" style="width:370px;" value="01012345678"></td></tr>
+				<tr><td>연락처</td><td><input type="text" style="width:370px;" value="${mvo.phone }"></td></tr>
 				<tr><td>주소</td><td>
-					<input type="text" style="width:100px;" value="03212" required>
+					<input type="text" style="width:100px;" value="${mvo.addr_1st }" required>
 					<input type="button" value="주소 검색" style="background-color: white;">
 				</td></tr>
-				<tr><td></td><td><input type="text" style="width:370px;" value="서울특별시 마포구 홍대입구로22길 123-12 (서초동)" required></td></tr>
-				<tr><td>상세주소</td><td><input type="text" style="width:370px;" value="7층 사무실" required></td></tr>
+				<tr><td></td><td><input type="text" style="width:370px;" value="${mvo.addr_2nd }" required></td></tr>
+				<tr><td>상세주소</td><td><input type="text" style="width:370px;" value="${mvo.addr_3rd }" required></td></tr>
 			</table>
 			<br><br>
 

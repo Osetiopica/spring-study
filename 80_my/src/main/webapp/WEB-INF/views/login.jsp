@@ -84,7 +84,7 @@
 			<input type="password" class="login_input" name="pw" placeholder="비밀번호" required> 
 			<input type="submit" class="login_btn" value="로그인">
 			<p class="clear">
-			<a href="join_terms.jsp">회원가입</a><a href="#">아이디 찾기</a><a href="#">비밀번호 찾기</a>
+			<a href="join_terms.do">회원가입</a><a href="#">아이디 찾기</a><a href="#">비밀번호 찾기</a>
 		</form>
 		</div>
 

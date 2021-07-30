@@ -62,19 +62,19 @@
 </style>
 <script type="text/javascript">
 	function alter() {
-		location.href="mypage_update.jsp";
+		location.href="mypage_update.do";
 	}
 	function password() {
-		location.href="mypage_password.jsp";
+		location.href="mypage_pwd.do";
 	}
 	function history() {
-		location.href="mypage_history.jsp";
+		location.href="mypage_history.do";
 	}
 	function cart() {
-		location.href="mypage_cart.jsp";
+		location.href="mypage_cart.do";
 	}
 	function quit() {
-		location.href="mypage_quit.jsp";
+		location.href="mypage_quit.do";
 	}
 </script>
 </head>

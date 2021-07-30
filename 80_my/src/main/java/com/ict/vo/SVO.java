@@ -2,7 +2,7 @@ package com.ict.vo;
 
 public class SVO {
 	
-	private String idx, p_idx, s_date, s_ver, s_size, s_color, m_idx, s_memo;
+	private String idx, p_idx, s_date, s_ver, s_size, s_color, m_idx, s_memo, s_pay, s_delivery;
 	private int s_price;
 	
 	public String getIdx() {
@@ -58,6 +58,18 @@ public class SVO {
 	}
 	public void setS_memo(String s_memo) {
 		this.s_memo = s_memo;
+	}
+	public String getS_pay() {
+		return s_pay;
+	}
+	public void setS_pay(String s_pay) {
+		this.s_pay = s_pay;
+	}
+	public String getS_delivery() {
+		return s_delivery;
+	}
+	public void setS_delivery(String s_delivery) {
+		this.s_delivery = s_delivery;
 	}
 	
 }

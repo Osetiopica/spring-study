@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.ict.vo.CVO;
 import com.ict.vo.MVO;
+import com.ict.vo.SVO;
 import com.ict.vo.VO;
 
-@Repository("myDAOImpl")
+@Repository
 public class MyDAOImpl implements MyDAO {
 	
 	@Autowired
@@ -26,6 +27,16 @@ public class MyDAOImpl implements MyDAO {
 	public VO selectOne(String idx) throws Exception {
 		return sqlSessionTemplate.selectOne("my.detail", idx);
 	}
+
+	@Override
+	public int insertShopping(SVO svo) throws Exception {
+		return sqlSessionTemplate.insert("my.shopping", svo);
+	}
+
+	@Override
+	public int insertJoin(MVO mvo) throws Exception {
+		return sqlSessionTemplate.insert("my.join", mvo);
+	}
 	
 	@Override
 	public MVO selectLogin(MVO mvo) throws Exception {
@@ -35,6 +46,11 @@ public class MyDAOImpl implements MyDAO {
 	@Override
 	public MVO selectMypage(MVO mvo) throws Exception {
 		return sqlSessionTemplate.selectOne("my.mypage", mvo);
+	}
+
+	@Override
+	public List<VO> selectShopping(String m_idx) throws Exception {
+		return sqlSessionTemplate.selectList("my.shopping", m_idx);
 	}
 
 	

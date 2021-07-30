@@ -106,7 +106,7 @@
 			alert("모든 약관에 동의하지 않으면 가입할 수 없습니다.");			
 			return;
 		}
-		location.href="join.jsp";
+		location.href="join.do";
 	}
 </script>
 </head>

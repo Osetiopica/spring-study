@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import com.ict.dao.MyDAO;
 import com.ict.vo.CVO;
 import com.ict.vo.MVO;
+import com.ict.vo.SVO;
 import com.ict.vo.VO;
 
-@Service("myServiceImpl")
+@Service
 public class MyServiceImpl implements MyService {
 
 	@Autowired
@@ -26,6 +27,16 @@ public class MyServiceImpl implements MyService {
 	public VO selectOne(String idx) throws Exception {
 		return myDAO.selectOne(idx);
 	}
+
+	@Override
+	public int insertShopping(SVO svo) throws Exception {
+		return myDAO.insertShopping(svo);
+	}
+
+	@Override
+	public int insertJoin(MVO mvo) throws Exception {
+		return myDAO.insertJoin(mvo);
+	}
 	
 	@Override
 	public MVO selectLogin(MVO mvo) throws Exception {
@@ -35,6 +46,11 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public MVO selectMypage(MVO mvo) throws Exception {
 		return myDAO.selectMypage(mvo);
+	}
+
+	@Override
+	public List<VO> selectShopping(String m_idx) throws Exception {
+		return myDAO.selectShopping(m_idx);
 	}
 
 	

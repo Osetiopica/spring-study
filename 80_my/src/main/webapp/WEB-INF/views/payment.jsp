@@ -99,9 +99,9 @@
 	}
 </style>
 <script type="text/javascript">
-	function buy_go() {
+	function buy_go(f) {
 		alert("결제가 완료 되었습니다.");
-		location.href="index.jsp";
+		f.submit();
 	}
 </script>
 </head>
@@ -118,6 +118,7 @@
 <br>
 <h2>결제하기</h2>
 <div class="payment_detail">
+	<form action="paymentOk.do" method="post">
 	<div class="payment_detail_left">
 		<div class="payment_product_info">
 		<h3>주문 상품 정보</h3>
@@ -135,15 +136,19 @@
 					<tr><td>색상</td><td>${svo.s_color }</td></tr>
 				</tbody>
 			</table>
+			<input type="hidden" name="s_ver" value="${svo.s_ver }">
+			<input type="hidden" name="s_size" value="${svo.s_size }">
+			<input type="hidden" name="s_color" value="${svo.s_color }">
 		</div>
 		<br>
 		<div class="delivery_info">
 			<h3>배송 정보</h3>
-			<p>홍길동</p>
-			<p>01012345678</p>
-			<p>서울특별시 마포구 홍대입구로22길 123-12 (서초동)</p>
-			<p>(03212)</p>
-			<p>배송 메모 <select style="padding:3px;"><option>배송 메모를 선택해 주세요.</option><option>집 앞에 두고 가주세요.</option></select></p>
+			<p>${mvo.name }</p>
+			<p>${mvo.phone }</p>
+			<p>${mvo.addr_1st } ${mvo.addr_2nd } ${mvo.addr_3rd } </p>
+			<p>배송 메모 <select name="s_memo" style="padding:3px;">
+						<option value="집 앞에 두고 가주세요.">집 앞에 두고 가주세요.</option>
+						</select></p>
 		</div>
 	</div>
 	
@@ -157,7 +162,9 @@
 					<tr><td colspan="2"><hr></td></tr>
 					<tr><td style="padding-right:10px;">총 결제 금액 </td>
 					<td class="float_right" style="color:hotpink; font-weight: bold;">
-					<f:formatNumber value="${vo.p_price+20000 }" pattern="#,###"/>원</td></tr>
+					<f:formatNumber value="${vo.p_price+20000 }" pattern="#,###"/>원
+					<input type="hidden" name="s_price" value="${vo.p_price+20000 }">
+					<input type="hidden" name="p_idx" value="${vo.idx }"></td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -165,16 +172,18 @@
 		<div class="payment_select">
 			<table class="payment_select_tb">
 				<tbody>
-					<tr><td><input type="radio" name="pay_way">신용카드</td><td><input type="radio" name="pay_way">가상계좌</td></tr>
-					<tr><td><input type="radio" name="pay_way">무통장 입금</td><td><input type="radio" name="pay_way">포인트 결제</td></tr>
+					<tr><td><input type="radio" name="s_pay" value="카드" required checked>신용카드</td>
+					<td><input type="radio" name="s_pay" value="계좌" required>가상계좌</td></tr>
+					<tr><td><input type="radio" name="s_pay" value="무통장" required>무통장 입금</td>
+					<td><input type="radio" name="s_pay" value="포인트" required>포인트 결제</td></tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="pay_btn">
-			<input type="button" class="pay_go_btn" value="결제하기" onclick="buy_go()">
+			<input type="submit" class="pay_go_btn" value="결제하기">
 		</div>
 	</div>
-	
+	</form>
 </div>
 
 </article>

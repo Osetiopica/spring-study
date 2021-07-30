@@ -56,19 +56,27 @@
 	}
 </style>
 <script type="text/javascript">
-function mail() {
-	var tmp = document.getElementById("mail_select").value;
-	if(tmp == "직접 입력 하기"){
-		tmp = "";
-		document.getElementById("mail_host").focus();
-	}
-	document.getElementById("mail_host").value = tmp;
-}
-function join_go() {
-	alert("회원가입 완료");
-	location.href="index.jsp";
+function findAddr(){
+	new daum.Postcode({
+        oncomplete: function(data) {
+        	
+        	console.log(data);
+        	
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('addr_1st').value = data.zonecode;
+            if(roadAddr !== ''){
+                document.getElementById("addr_2nd").value = roadAddr;
+            } 
+            else if(jibunAddr !== ''){
+                document.getElementById("addr_2nd").value = jibunAddr;
+            }
+        }
+    }).open();
 }
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -79,35 +87,29 @@ function join_go() {
 <div><a>HOME</a> > 회원가입</div>
 <br>
 <h2 class="join_title">회원정보 입력</h2>
+<form action="join_ok.do" method="post">
 	<div class="join_border">
 			<table class="tb">
-				<tr><td>아이디</td><td><input type="text" style="width:370px;" required></td></tr>
-				<tr><td>비밀번호</td><td><input type="text" style="width:370px;" required></td></tr>
+				<tr><td>아이디</td><td><input type="text" name="id" style="width:370px;" required></td></tr>
+				<tr><td>비밀번호</td><td><input type="text" name="pw" style="width:370px;" required></td></tr>
 				<tr><td>비밀번호 확인</td><td><input type="text" style="width:370px;" required></td></tr>
-				<tr><td>이름</td><td><input type="text" style="width:370px;" required></td></tr>
-				<tr><td>이메일</td><td>
-					<input type="text" style="width:115px;" required>@<input type="text" id="mail_host" style="width:105px;" required>
-					<select id="mail_select" style="width:130px;" onchange="mail()">
-						<option>직접 입력 하기</option>
-						<option>naver.com</option>
-						<option>google.com</option>
-					</select>
-				</td></tr>
-				<tr><td>연락처</td><td><input type="text" style="width:370px;"></td></tr>
+				<tr><td>이름</td><td><input type="text" name="name" style="width:370px;" required></td></tr>
+				<tr><td>연락처</td><td><input type="text" name="phone" style="width:370px;"></td></tr>
+				<tr><td>이메일</td><td><input type="text" name="email" style="width:370px;"></td></tr>
 				<tr><td>주소</td><td>
-					<input type="text" style="width:100px;" required>
-					<input type="button" value="주소 검색" style="background-color: white;">
+					<input type="text" id="addr_1st" name="addr_1st" style="width:100px;" required readonly>
+					<input type="button" value="주소 검색" style="background-color: white;" onclick="findAddr()">
 				</td></tr>
-				<tr><td></td><td><input type="text" style="width:370px;" required></td></tr>
-				<tr><td>상세주소</td><td><input type="text" style="width:370px;" required></td></tr>
+				<tr><td></td><td><input type="text" id="addr_2nd" name="addr_2nd" style="width:370px;" required readonly></td></tr>
+				<tr><td>상세주소</td><td><input type="text" name="addr_3rd" style="width:370px;" required></td></tr>
 			</table>
 			<br><br>
-
 	</div>
 			<div class="join_move_btn">
 				<input type="button" class="prev" value="이전 단계" onclick="javascript:history.back()">
-				<input type="button" class="next" value="회원가입" onclick="join_go()">
+				<input type="submit" class="next" value="회원가입">
 			</div>
+</form>
 </article>
 
 	<%@include file="footer.jsp" %>

@@ -19,7 +19,6 @@
 	.log {
 		float: right;
 		margin-right: 30px;
-		font-weight: bold;
 	}
 	.search_all {
 		float: right;
@@ -56,8 +55,8 @@
 		</c:when>
 		<c:otherwise>
 			<div class="log">
-				<font>${name } 님</font>&nbsp;|&nbsp;
-				<a href="javascript:logout()">로그아웃</a>&nbsp;|&nbsp;<a href="mypage.do">마이페이지</a>
+				<b>${name }</b> 님&nbsp;/
+				<a href="javascript:logout()">로그아웃</a>&nbsp;/&nbsp;<a href="mypage.do">마이페이지</a>
 			</div>
 		</c:otherwise>
 	</c:choose>
