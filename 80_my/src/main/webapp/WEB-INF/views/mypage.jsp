@@ -84,7 +84,7 @@
 	<%@include file="nav.jsp" %>
 
 <article>
-<div><a href="index.jsp">HOME</a> > 
+<div><a href="main.do">HOME</a> > 
 <a>마이페이지</a>
 </div>
 <br>

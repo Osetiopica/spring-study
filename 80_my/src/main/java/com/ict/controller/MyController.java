@@ -153,9 +153,8 @@ public class MyController {
 			if (name != "") {
 				request.getSession().setAttribute("login", result.getIdx());
 				request.getSession().setAttribute("name", name);
-				String test = result.getId();
-				if (test.equalsIgnoreCase("admin")) {
-					return new ModelAndView("admin_main");
+				if((result.getId()).equalsIgnoreCase("admin")) {
+					return new ModelAndView("redirect:admin_main.do");
 				}
 				return mv;
 			}
@@ -244,9 +243,92 @@ public class MyController {
 			MVO mvo = new MVO();
 			mvo.setIdx((String) request.getSession().getAttribute("login"));
 			
-			List<VO> list = myService.selectShopping(mvo.getIdx());
+			List<VO> list = myService.selectShoppingList(mvo.getIdx());
 			mv.addObject("list", list);
 			
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("mypage_cart.do")
+	public ModelAndView mypageCartCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("mypage_cart");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			
+			List<VO> list = myService.selectCartList(mvo.getIdx());
+			mv.addObject("list", list);
+			
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+
+	@RequestMapping("admin_main.do")
+	public ModelAndView adminMainCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("admin_main");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			mvo = myService.selectMypage(mvo);
+			mv.addObject("mvo", mvo);
+			
+			int count = myService.selectMembersCount();
+			mv.addObject("count", count);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_members_list.do")
+	public ModelAndView adminMembersListCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("admin_members_list");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getSession().getAttribute("login"));
+			mvo = myService.selectMypage(mvo);
+			mv.addObject("mvo", mvo);
+			
+			List<MVO> list = myService.selectMembersList(mvo);
+			mv.addObject("list", list);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_member_detail.do")
+	public ModelAndView adminMemberDetailCommand(HttpServletRequest request) {
+		try {
+			ModelAndView mv = new ModelAndView("admin_member_detail");
+			
+			MVO mvo = new MVO();
+			mvo.setIdx((String) request.getAttribute("idx"));
+			mvo = myService.selectMypage(mvo);
+			mv.addObject("mvo", mvo);
+
 			return mv;
 		} catch (Exception e) {
 			ModelAndView mv = new ModelAndView("error");

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +49,7 @@
 	}
 	.product_detail_tb thead{
 		font-weight: bold;
-		font-size: 110%;
+		font-size: 120%;
 	}
 	.product_detail_tb td{
 		padding: 5px 0;
@@ -60,7 +61,6 @@
 	.payment_product_info{
 		background-color: white;
 		padding: 20px;
-		border-radius: 10px;
 	}
 	.payment_detail{
 		width: 1000px;
@@ -99,9 +99,9 @@
 	}
 </style>
 <script type="text/javascript">
-	function buy_go() {
+	function buy_go(f) {
 		alert("결제가 완료 되었습니다.");
-		location.href="index.jsp";
+		f.submit();
 	}
 </script>
 </head>
@@ -111,29 +111,43 @@
 	<%@include file="nav.jsp" %>
 
 <article>
-<div><a href="main.do">HOME</a> >
-<a href="mypage.do">마이페이지</a> >
-구매내역
+<div><a href="index.jsp">HOME</a> > 
+<a>주문</a> > 
+<a>결제</a>
 </div>
 <br>
-<h2>구매내역</h2>
+<h2>결제완료</h2>
 <div class="payment_detail">
-		<c:forEach var="i" items="${list }">
+	<h1 style="text-align: center;">결제가 완료되었습니다!</h1>
+	<div class="payment_detail_left">
 		<div class="payment_product_info">
-			<div class="product_img"><img src="resources/images/30010778_detail_032.jpg"></div>
+		<h3></h3>
+		<div class="product_img"><img src="resources/images/${vo.p_image_1st }"></div>
 			<table class="product_detail_tb">
 				<thead>
-					<tr><td colspan="2">${p_content }</td></tr>
+					<tr><td colspan="2">${vo.p_content }</td></tr>
 				</thead>
 				<tbody>
-					<tr><td style="width:100px;">결제 금액</td><td style="width:300px;">${i.s_price }</td><td style="width:100px;">버전</td><td>${i.s_ver }</td></tr>
-					<tr><td>모델명</td><td>${i.p_name }</td><td>용량</td><td>${i.s_size }</td></tr>
-					<tr><td>구매일시</td><td>${i.s_date }</td><td>색상</td><td>${i.s_color }</td></tr>
+					<tr><td style="width:100px;">결제금액</td><td><f:formatNumber value="${svo.s_price }" pattern="#,###"/>원</td></tr>
+					<tr><td>모델명</td><td>${vo.p_name }</td></tr>
+					<tr><td>버전</td><td>${svo.s_ver }</td></tr>
+					<tr><td>용량</td><td>${svo.s_size }</td></tr>
+					<tr><td>색상</td><td>${svo.s_color }</td></tr>
+					<tr><td>배송 메모</td><td>${svo.s_memo }</td></tr>
 				</tbody>
 			</table>
 		</div>
 		<br>
-		</c:forEach>
+	</div>
+	
+	<div class="payment_detail_right">
+		<br>
+		<div class="pay_btn">
+			<button class="pay_go_btn" onclick="javascript:location.href='main.do'"><b>메인으로</b></button>
+			<br><br>
+			<button class="pay_go_btn" onclick="javascript:location.href='mypage.do'">결제내역 보기</button>
+		</div>
+	</div>
 </div>
 
 </article>

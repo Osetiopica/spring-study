@@ -79,8 +79,8 @@ function mypage_go() {
 	<%@include file="nav.jsp" %>
 
 <article>
-<div><a>HOME</a> >
-<a href="mypage.jsp">마이페이지</a> >
+<div><a href="main.do">HOME</a> >
+<a href="mypage.do">마이페이지</a> >
 비밀번호 변경
 </div>
 <br>

@@ -55,17 +55,17 @@
 	
 </style>
 <script type="text/javascript">
-	function admin_customer() {
-		location.href="admin_customer_list.jsp";
+	function admin_members() {
+		location.href="admin_members_list.do";
 	}
 	function admin_product() {
-		location.href="admin_product_list.jsp";
+		location.href="admin_product_list.do";
 	}
 	function admin_history() {
-		location.href="admin_history_list.jsp";
+		location.href="admin_history_list.do";
 	}
 	function admin_other() {
-		location.href="admin_other.jsp";
+		location.href="admin_other.do";
 	}
 </script>
 </head>
@@ -86,15 +86,15 @@
 		<h3>사이트 정보</h3>
 			<table class="admin_tb">
 				<tbody>
-					<tr><td>사이트 생성일</td><td>2022-02-02 02:22:22</td></tr>
-					<tr><td>총 회원 수</td><td>101</td></tr>
+					<tr><td>사이트 생성일</td><td>${mvo.reg }</td></tr>
+					<tr><td>총 회원 수</td><td>${count }</td></tr>
 				</tbody>
 			</table>
 	</div>
 	
 	<div class="admin_right">
 		<div class="admin_btn">
-			<input type="button" class="admin_go_btn" value="회원 관리" onclick="admin_customer()">
+			<input type="button" class="admin_go_btn" value="회원 관리" onclick="admin_members()">
 			<input type="button" class="admin_go_btn" value="상품 관리" onclick="admin_product()">
 			<input type="button" class="admin_go_btn" value="판매 내역" onclick="admin_history()">
 			<input type="button" class="admin_go_btn" value="기타" onclick="admin_other()">

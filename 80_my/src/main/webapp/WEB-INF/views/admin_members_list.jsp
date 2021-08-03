@@ -64,7 +64,7 @@
 		}
 	}
 	function admin_customer_info() {
-		location.href="admin_customer_detail.jsp";
+		location.href="";
 	}
 </script>
 </head>
@@ -97,15 +97,14 @@
 	<div class="admin_border">
 		<table>
 			<thead><tr>
-			<td>아이디</td><td>이름</td><td>가입일시</td><td>마지막 접속일시</td>
+			<td>아이디</td><td>이름</td><td>가입일시</td>
 			</tr></thead>
-			<c:forEach begin="0" end="4" step="1">
-			<tr onclick="admin_customer_info()">
-				<td width="20%">hong123</td>
-				<td>홍길동</td>
-				<td width="20%">2022-02-02 22:22:22</td>
-				<td width="20%">2022-02-22 22:22:22</td>
-			</tr>
+			<c:forEach var="i" items="${list }">
+				<tr onclick="javascript:location.href='admin_customer_detail.do?idx=${i.idx}'">
+					<td width="20%">${i.id }</td>
+					<td>${i.name }</td>
+					<td width="20%">${i.reg }</td>
+				</tr>
 			</c:forEach>
 		</table>
 	</div>

@@ -30,7 +30,19 @@
 	
 	<select id="shoppingList" parameterType="String" resultType="com.ict.vo.VO">
 		select p_content,s_price,p_name,s_ver,s_size,s_color,s_date 
-		from products p, my_shopping s where p.idx=s.p_idx order by s.idx desc;
+		from products p, my_shopping s where p.idx=s.p_idx order by s.idx desc
+	</select>
+	
+	<select id="cartList" parameterType="String" resultType="com.ict.vo.VO">
+		select p.p_image_1st,p.p_content,p.p_name,c.c_date from products p, my_members m, my_cart c where c.m_idx=m.idx and c.p_idx=p.idx and c.m_idx=#{m_idx}
+	</select>
+	
+	<select id="membersCount" resultType="int">
+		select count(*) from my_members
+	</select>
+	
+	<select id="membersList" parameterType="com.ict.vo.MVO" resultType="com.ict.vo.MVO">
+		select * from my_members order by idx desc
 	</select>
 <!-- 
 	<select id="list" parameterType="String" resultType="com.ict.vo.VO">

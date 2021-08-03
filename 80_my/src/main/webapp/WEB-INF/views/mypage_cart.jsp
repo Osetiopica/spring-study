@@ -111,24 +111,27 @@
 <br>
 <h2>장바구니</h2>
 <div class="payment_detail">
-
-		<c:forEach begin="0" end="3" step="1">
+		
+		<c:choose>
+			<c:when test="${empty list }">
+				<h1 style="text-align: center;">장바구니가 비었습니다.</h1>
+			</c:when>
+		</c:choose>
+		<c:forEach var="i" items="${list }">
 			<div class="payment_product_info">
-				<div class="product_img"><img src="resources/images/30010778_detail_032.jpg"></div>
+				<div class="product_img"><img src="resources/images/${i.p_image_1st }"></div>
 				<table class="product_detail_tb">
 					<thead>
-						<tr><td colspan="2">아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td></tr>
+						<tr><td colspan="2">${i.p_content }</td></tr>
 					</thead>
 					<tbody>
-						<tr><td>모델명</td><td>Rog Phone 5</td></tr>
-						<tr><td>버전</td><td>글로벌 버전</td></tr>
-						<tr><td>용량</td><td>256GB+12GB</td></tr>
-						<tr><td>색상</td><td>블랙</td></tr>
+						<tr><td>모델명</td><td>${i.p_name }</td></tr>
+						<tr><td>추가한 날</td><td>${i.c_date }</td></tr>
 					</tbody>
 				</table>
 				<div class="buy_btn">
-						<input type="button" class="cart_delete_btn" value="장바구니에서 삭제" onclick="()">
-						<input type="button" class="buy_go_btn" value="구매하기" onclick="()">
+					<input type="button" class="cart_delete_btn" value="장바구니에서 삭제" onclick="">
+					<input type="button" class="buy_go_btn" value="사러 가기" onclick="">
 				</div>
 			</div>
 			<br>

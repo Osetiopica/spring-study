@@ -98,7 +98,7 @@
 	<h2 class="alter_title">회원정보 수정</h2>
 	<div class="join_border">
 			<table class="tb">
-				<tr><td>아이디</td><td><input type="text" style="width:370px;" value="hong123" readonly></td></tr>
+				<tr><td>아이디</td><td><input type="text" style="width:370px;" value="${mvo.id }" readonly></td></tr>
 				<tr><td>비밀번호</td><td><input type="text" style="width:370px;" required></td></tr>
 				<tr><td>이름</td><td><input type="text" style="width:370px;" value="홍길동" required></td></tr>
 				<tr><td>이메일</td><td>

@@ -49,17 +49,27 @@ public class MyServiceImpl implements MyService {
 	}
 
 	@Override
-	public List<VO> selectShopping(String m_idx) throws Exception {
-		return myDAO.selectShopping(m_idx);
+	public List<VO> selectShoppingList(String m_idx) throws Exception {
+		return myDAO.selectShoppingList(m_idx);
 	}
 
-	
-	
 	@Override
 	public List<VO> selectCartList(String m_idx) throws Exception {
 		return myDAO.selectCartList(m_idx);
 	}
 
+	@Override
+	public int selectMembersCount() throws Exception {
+		return myDAO.selectMembersCount();
+	}
+
+	@Override
+	public List<MVO> selectMembersList(MVO mvo) throws Exception {
+		return myDAO.selectMembersList(mvo);
+	}
+
+	
+	
 	@Override
 	public int insertAddCart(CVO cvo) throws Exception {
 		return myDAO.insertAddCart(cvo);
