@@ -161,10 +161,12 @@
 					<tr><td>배송비</td><td class="float_right">20,000원</td></tr>
 					<tr><td colspan="2"><hr></td></tr>
 					<tr><td style="padding-right:10px;">총 결제 금액 </td>
-					<td class="float_right" style="color:hotpink; font-weight: bold;">
-					<f:formatNumber value="${vo.p_price+20000 }" pattern="#,###"/>원
-					<input type="hidden" name="s_price" value="${vo.p_price+20000 }">
-					<input type="hidden" name="p_idx" value="${vo.idx }"></td></tr>
+						<td class="float_right" style="color:hotpink; font-weight: bold;">
+							<f:formatNumber value="${vo.p_price+20000 }" pattern="#,###"/>원
+							<input type="hidden" name="s_price" value="${vo.p_price+20000 }">
+							<input type="hidden" name="p_idx" value="${vo.idx }">
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

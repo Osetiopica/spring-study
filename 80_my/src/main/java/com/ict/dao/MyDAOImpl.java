@@ -68,6 +68,21 @@ public class MyDAOImpl implements MyDAO {
 		return sqlSessionTemplate.selectList("my.membersList", mvo);
 	}
 	
+	@Override
+	public List<VO> selectProductsList() throws Exception {
+		return sqlSessionTemplate.selectList("my.productsList");
+	}
+	
+	@Override
+	public List<VO> selectHistoryList() throws Exception {
+		return sqlSessionTemplate.selectList("my.historyList");
+	}
+	
+	@Override
+	public VO selectHistoryDetail(String idx) throws Exception {
+		return sqlSessionTemplate.selectOne("my.historyDetail", idx);
+	}
+	
 	
 
 	@Override

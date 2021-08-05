@@ -69,13 +69,16 @@
 	}
 	function mypage_go() {
 		alert("회원정보 수정 완료");
-		location.href="admin_customer_list.jsp";
+		location.href="admin_members_list.do";
 	}
 	function customer_kick() {
 		var a = confirm("해당 회원을 삭제하겠습니까?");
 		if(a){
-			location.href="admin_customer_list.jsp";
+			location.href="admin_members_list.do";
 		}
+	}
+	function admin_go(t) {
+		location.href=t.value+".do";
 	}
 </script>
 </head>
@@ -85,37 +88,29 @@
 	<%@include file="nav.jsp" %>
 
 <article>
-	<div><a>HOME</a> >
-		<a href="admin.jsp">관리자</a> >
-		<select onchange="admin_go()" class="admin_link">
-			<option value="admin_customer" selected>회원 관리</option>
-			<option value="admin_product">상품 관리</option>
+	<div><a href="main.do">HOME</a> >
+		<a href="admin_main.do">관리자</a> >
+		<select onchange="admin_go(this)" class="admin_link">
+			<option value="admin_members_list" selected>회원 관리</option>
+			<option value="admin_products_list">상품 관리</option>
 			<option value="admin_history">판매 내역</option>
 			<option value="admin_other">기타</option>
 		</select>
 	</div>
 	<br>
-	<h2 class="alter_title">회원정보 수정</h2>
+	<h2 class="alter_title">회원정보 보기</h2>
 	<div class="join_border">
 			<table class="tb">
 				<tr><td>아이디</td><td><input type="text" style="width:370px;" value="${mvo.id }" readonly></td></tr>
-				<tr><td>비밀번호</td><td><input type="text" style="width:370px;" required></td></tr>
-				<tr><td>이름</td><td><input type="text" style="width:370px;" value="홍길동" required></td></tr>
-				<tr><td>이메일</td><td>
-					<input type="text" style="width:115px;" value="hong123" required>@<input type="text" id="mail_host" style="width:105px;" value="google.com" required>
-					<select id="mail_select" style="width:130px;" onchange="mail()">
-						<option>직접 입력 하기</option>
-						<option>naver.com</option>
-						<option>google.com</option>
-					</select>
-				</td></tr>
-				<tr><td>연락처</td><td><input type="text" style="width:370px;" value="01012345678"></td></tr>
+				<tr><td>이름</td><td><input type="text" style="width:370px;" value="${mvo.name }" required></td></tr>
+				<tr><td>이메일</td><td><input type="text" style="width:370px;" value="${mvo.email }" required></td></tr>
+				<tr><td>연락처</td><td><input type="text" style="width:370px;" value="${mvo.phone }" required></td></tr>
 				<tr><td>주소</td><td>
-					<input type="text" style="width:100px;" value="03212" required>
+					<input type="text" style="width:100px;" value="${mvo.addr_1st }" readonly>
 					<input type="button" value="주소 검색" style="background-color: white;">
 				</td></tr>
-				<tr><td></td><td><input type="text" style="width:370px;" value="서울특별시 마포구 홍대입구로22길 123-12 (서초동)" required></td></tr>
-				<tr><td>상세주소</td><td><input type="text" style="width:370px;" value="7층 사무실" required></td></tr>
+				<tr><td></td><td><input type="text" style="width:370px;" value="${mvo.addr_2nd }" required></td></tr>
+				<tr><td>상세주소</td><td><input type="text" style="width:370px;" value="${mvo.addr_3rd }" required></td></tr>
 			</table>
 			<br><br>
 

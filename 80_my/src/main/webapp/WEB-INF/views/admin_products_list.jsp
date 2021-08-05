@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,10 +79,7 @@
 		}
 	}
 	function product_add() {
-		location.href="admin_product_insert.jsp";
-	}
-	function admin_product_update() {
-		location.href="admin_product_update.jsp";
+		location.href="admin_product_insert.do";
 	}
 </script>
 </head>
@@ -104,9 +102,8 @@
 	<h2 style="float: left;">상품 관리</h2>
 	<div class="admin_search_div">
 		<select class="admin_search_select">
-			<option value="admin_search_category" selected>카테고리</option>
-			<option value="admin_search_name">이름</option>
-			<option value="admin_search_id">아이디</option>
+			<option value="admin_search_category" selected>상품명</option>
+			<option value="admin_search_name">제조사</option>
 		</select>
 		<input type="search" class="admin_search">
 		<input type="button" class="admin_search_btn" value="검색">
@@ -115,15 +112,14 @@
 	<div class="admin_border">
 		<table>
 			<thead><tr>
-			<td>상품ID</td><td>카테고리</td><td>상품명</td><td>가격</td><td>등록일시</td>
+			<td>제조사</td><td>상품명</td><td>가격</td><td>등록일시</td>
 			</tr></thead>
-			<c:forEach begin="0" end="4" step="1">
-			<tr onclick="admin_product_update()">
-				<td width="10%">1001</td>
-				<td width="10%">ASUS</td>
-				<td>아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td>
-				<td width="15%">729,000원</td>
-				<td width="20%">2022-02-22 22:22:22</td>
+			<c:forEach var="i" items="${list }">
+			<tr onclick="javasctipt:location.href='admin_product_update.do?idx=${i.idx}';">
+				<td width="10%">${i.p_company }</td>
+				<td>${i.p_content }</td>
+				<td width="15%"><f:formatNumber value="${i.p_price }" pattern="#,###"/>원</td>
+				<td width="20%">${i.p_date }</td>
 			</tr>
 			</c:forEach>
 		</table>

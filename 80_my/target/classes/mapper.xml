@@ -44,6 +44,18 @@
 	<select id="membersList" parameterType="com.ict.vo.MVO" resultType="com.ict.vo.MVO">
 		select * from my_members order by idx desc
 	</select>
+	
+	<select id="productsList" resultType="com.ict.vo.VO">
+		select * from products order by idx desc
+	</select>
+	
+	<select id="historyList" resultType="com.ict.vo.VO">
+		select * from my_shopping s, products p, my_members m where s.p_idx=p.idx and s.m_idx=m.idx order by s.idx desc
+	</select>
+	
+	<select id="historyDetail" parameterType="String" resultType="com.ict.vo.VO">
+		select * from my_shopping s, products p, my_members m where s.p_idx=p.idx and s.m_idx=m.idx and s.idx=#{idx}
+	</select>
 <!-- 
 	<select id="list" parameterType="String" resultType="com.ict.vo.VO">
 		select * from shop_t where category = #{category}

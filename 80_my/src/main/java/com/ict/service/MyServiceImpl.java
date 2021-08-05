@@ -68,6 +68,20 @@ public class MyServiceImpl implements MyService {
 		return myDAO.selectMembersList(mvo);
 	}
 
+	@Override
+	public List<VO> selectProductsList() throws Exception {
+		return myDAO.selectProductsList();
+	}
+	
+	@Override
+	public List<VO> selectHistoryList() throws Exception {
+		return myDAO.selectHistoryList();
+	}
+	
+	@Override
+	public VO selectHistoryDetail(String idx) throws Exception {
+		return myDAO.selectHistoryDetail(idx);
+	}
 	
 	
 	@Override

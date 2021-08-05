@@ -21,6 +21,9 @@ public interface MyService {
 	List<VO> selectCartList(String m_idx) throws Exception;
 	int selectMembersCount() throws Exception;
 	List<MVO> selectMembersList(MVO mvo) throws Exception;
+	List<VO> selectProductsList() throws Exception;
+	List<VO> selectHistoryList() throws Exception;
+	VO selectHistoryDetail(String idx) throws Exception;
 	
 	int insertAddCart(CVO cvo) throws Exception;
 	int updatePlusCart(String idx) throws Exception;

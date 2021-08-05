@@ -58,8 +58,8 @@
 	function admin_members() {
 		location.href="admin_members_list.do";
 	}
-	function admin_product() {
-		location.href="admin_product_list.do";
+	function admin_products() {
+		location.href="admin_products_list.do";
 	}
 	function admin_history() {
 		location.href="admin_history_list.do";
@@ -95,7 +95,7 @@
 	<div class="admin_right">
 		<div class="admin_btn">
 			<input type="button" class="admin_go_btn" value="회원 관리" onclick="admin_members()">
-			<input type="button" class="admin_go_btn" value="상품 관리" onclick="admin_product()">
+			<input type="button" class="admin_go_btn" value="상품 관리" onclick="admin_products()">
 			<input type="button" class="admin_go_btn" value="판매 내역" onclick="admin_history()">
 			<input type="button" class="admin_go_btn" value="기타" onclick="admin_other()">
 		</div>

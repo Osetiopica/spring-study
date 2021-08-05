@@ -77,9 +77,6 @@
 			location.href="admin_other.jsp";
 		}
 	}
-	function admin_history_detail() {
-		location.href="admin_history_detail.jsp";
-	}
 </script>
 </head>
 <body>
@@ -112,17 +109,16 @@
 	<div class="admin_border">
 		<table>
 			<thead><tr>
-			<td>No</td><td>상품ID</td><td>카테고리</td><td>상품명</td><td>결제액</td><td>판매일시</td><td>진행상황</td>
+			<td>No</td><td>제조사</td><td>상품명</td><td>결제액</td><td>결제일시</td><td>진행상황</td>
 			</tr></thead>
-			<c:forEach begin="0" end="4" step="1">
-			<tr onclick="admin_history_detail()">
-				<td width="5%">1</td>
-				<td width="10%">1001</td>
-				<td width="10%">ASUS</td>
-				<td>아수스 로그폰5 Asus Rog Phone5 5G 8GB/16GB +128GB/256GB ZS673KS 듀얼심</td>
-				<td width="15%">729,000원</td>
-				<td width="20%">2022-02-22 22:22:22</td>
-				<td width="10%">배송완료</td>
+			<c:forEach var="i" items="${list }">
+			<tr onclick="javascript:location.href='admin_history_detail.do?idx=${i.idx}'">
+				<td width="5%">${i.idx }</td>
+				<td width="10%">${i.p_company }</td>
+				<td>${i.p_content }</td>
+				<td width="15%">${i.s_price }</td>
+				<td width="20%">${i.s_date }</td>
+				<td width="10%">${i.s_delivery }</td>
 			</tr>
 			</c:forEach>
 		</table>

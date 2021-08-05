@@ -73,6 +73,9 @@ public class MyController {
 	@RequestMapping("payment.do")
 	public ModelAndView paymentCommand(@ModelAttribute("svo") SVO svo, HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("payment");
 			
 			VO vo = myService.selectOne(svo.getP_idx());
@@ -96,6 +99,9 @@ public class MyController {
 	@RequestMapping("paymentOk.do")
 	public ModelAndView paymentOkCommand(SVO svo, HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("payment_success");
 			
 			svo.setM_idx((String) request.getSession().getAttribute("login"));
@@ -181,6 +187,9 @@ public class MyController {
 	@RequestMapping("mypage.do")
 	public ModelAndView mypageCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("mypage");
 			
 			MVO mvo = new MVO();
@@ -200,6 +209,9 @@ public class MyController {
 	@RequestMapping("mypage_update.do")
 	public ModelAndView mypageUpdateCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("mypage_update");
 			
 			MVO mvo = new MVO();
@@ -219,6 +231,9 @@ public class MyController {
 	@RequestMapping("mypage_pwd.do")
 	public ModelAndView mypagePwdCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("mypage_password");
 			
 			MVO mvo = new MVO();
@@ -238,6 +253,9 @@ public class MyController {
 	@RequestMapping("mypage_history.do")
 	public ModelAndView mypageHistoryCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("mypage_history");
 			
 			MVO mvo = new MVO();
@@ -258,6 +276,9 @@ public class MyController {
 	@RequestMapping("mypage_cart.do")
 	public ModelAndView mypageCartCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("mypage_cart");
 			
 			MVO mvo = new MVO();
@@ -278,6 +299,9 @@ public class MyController {
 	@RequestMapping("admin_main.do")
 	public ModelAndView adminMainCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("admin_main");
 			
 			MVO mvo = new MVO();
@@ -300,6 +324,9 @@ public class MyController {
 	@RequestMapping("admin_members_list.do")
 	public ModelAndView adminMembersListCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("admin_members_list");
 			
 			MVO mvo = new MVO();
@@ -322,13 +349,128 @@ public class MyController {
 	@RequestMapping("admin_member_detail.do")
 	public ModelAndView adminMemberDetailCommand(HttpServletRequest request) {
 		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
 			ModelAndView mv = new ModelAndView("admin_member_detail");
 			
 			MVO mvo = new MVO();
-			mvo.setIdx((String) request.getAttribute("idx"));
+			mvo.setIdx(request.getParameter("idx"));
 			mvo = myService.selectMypage(mvo);
 			mv.addObject("mvo", mvo);
 
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_products_list.do")
+	public ModelAndView adminProductsListCommand(HttpServletRequest request) {
+		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
+			ModelAndView mv = new ModelAndView("admin_products_list");
+			
+			List<VO> list = myService.selectProductsList();
+			mv.addObject("list", list);
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_product_insert.do")
+	public ModelAndView adminProductInsertCommand(HttpServletRequest request) {
+		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
+			return new ModelAndView("admin_product_insert");
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_product_update.do")
+	public ModelAndView adminProductUpdateCommand(HttpServletRequest request) {
+		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
+			ModelAndView mv = new ModelAndView("admin_product_update");
+			
+			VO vo = new VO();
+			vo = myService.selectOne(request.getParameter("idx"));
+			mv.addObject("vo", vo);
+
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_history_list.do")
+	public ModelAndView adminHistoryListCommand(HttpServletRequest request) {
+		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
+			ModelAndView mv = new ModelAndView("admin_history_list");
+			
+			List<VO> list = myService.selectHistoryList();
+			mv.addObject("list", list);
+			
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_history_detail.do")
+	public ModelAndView adminHistoryDetailCommand(HttpServletRequest request) {
+		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
+			ModelAndView mv = new ModelAndView("admin_history_detail");
+			
+			VO vo = myService.selectHistoryDetail(request.getParameter("idx"));
+			mv.addObject("vo", vo);
+			
+			return mv;
+		} catch (Exception e) {
+			ModelAndView mv = new ModelAndView("error");
+			System.out.println(e);
+			mv.addObject("e", e);
+			return mv;
+		}
+	}
+	
+	@RequestMapping("admin_other.do")
+	public ModelAndView adminOtherCommand(HttpServletRequest request) {
+		try {
+			if((String) request.getSession().getAttribute("login") == null) {
+				return new ModelAndView("redirect:login.do");
+			}
+			ModelAndView mv = new ModelAndView("admin_other");
+						
 			return mv;
 		} catch (Exception e) {
 			ModelAndView mv = new ModelAndView("error");

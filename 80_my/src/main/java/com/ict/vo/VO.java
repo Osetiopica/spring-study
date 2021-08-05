@@ -8,6 +8,7 @@ public class VO {
 	private int p_price,s_price;
 	private MultipartFile p_image_1st_mf, p_image_2nd_mf, p_image_3rd_mf, p_image_4th_mf;
 	private String p_idx, s_date, s_ver, s_size, s_color, m_idx, s_memo, s_pay, s_delivery, c_date;
+	private String id, pw, name, phone, email, addr_1st, addr_2nd, addr_3rd, reg;
 
 	// 별도 추가 (장바구니내용 => 원래는 DB에 구현 )
 	private int quant, totalPrice ;
@@ -269,6 +270,96 @@ public class VO {
 
 	public void setC_date(String c_date) {
 		this.c_date = c_date;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getPw() {
+		return pw;
+	}
+
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getAddr_1st() {
+		return addr_1st;
+	}
+
+
+	public void setAddr_1st(String addr_1st) {
+		this.addr_1st = addr_1st;
+	}
+
+
+	public String getAddr_2nd() {
+		return addr_2nd;
+	}
+
+
+	public void setAddr_2nd(String addr_2nd) {
+		this.addr_2nd = addr_2nd;
+	}
+
+
+	public String getAddr_3rd() {
+		return addr_3rd;
+	}
+
+
+	public void setAddr_3rd(String addr_3rd) {
+		this.addr_3rd = addr_3rd;
+	}
+
+
+	public String getReg() {
+		return reg;
+	}
+
+
+	public void setReg(String reg) {
+		this.reg = reg;
 	}
 	
 }

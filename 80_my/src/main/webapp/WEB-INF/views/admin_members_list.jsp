@@ -100,7 +100,7 @@
 			<td>아이디</td><td>이름</td><td>가입일시</td>
 			</tr></thead>
 			<c:forEach var="i" items="${list }">
-				<tr onclick="javascript:location.href='admin_customer_detail.do?idx=${i.idx}'">
+				<tr onclick="javascript:location.href='admin_member_detail.do?idx=${i.idx}'">
 					<td width="20%">${i.id }</td>
 					<td>${i.name }</td>
 					<td width="20%">${i.reg }</td>
